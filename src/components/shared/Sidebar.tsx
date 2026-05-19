@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/src/hooks/useTheme';
 import {
   LayoutDashboard, TrendingUp, BookOpen, FileText,
   Mic, Lightbulb, GraduationCap, Users,
@@ -40,6 +41,7 @@ interface SidebarProps {
 
 export function Sidebar({ role }: SidebarProps) {
   const pathname = usePathname();
+  const { theme } = useTheme();
 
   const config = useMemo((): ThemeConfig => {
     const themes: Record<RoleType, ThemeConfig> = {
@@ -155,7 +157,14 @@ export function Sidebar({ role }: SidebarProps) {
                   ? 'font-semibold shadow-sm'
                   : 'text-slate-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-200',
               )}
-              style={isActive ? { backgroundColor: 'var(--tw-bg-opacity, 1)' !== '1' ? config.accentDark : config.accentLight, color: config.accent } : {}}
+              style={
+                isActive
+                  ? {
+                      backgroundColor: theme === 'dark' ? config.accentDark : config.accentLight,
+                      color: config.accent,
+                    }
+                  : {}
+              }
             >
               {/* Active indicator stripe */}
               {isActive && (

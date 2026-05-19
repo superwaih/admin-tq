@@ -247,7 +247,7 @@ export default function StartMockInterviewPage() {
                     }`}>
                       {msg.text}
                     </div>
-                    <span className="text-[9px] text-slate-400 dark:text-[#8e92ad] px-1">{msg.time}{msg.read ? ' ✓' : ''}</span>
+                    <span className="text-[9px] text-slate-400 dark:text-[#8e92ad] px-1">{msg.time}{'read' in msg && msg.read ? ' ✓' : ''}</span>
                   </div>
                   {msg.role === 'candidate' && (
                     <div className="w-7 h-7 rounded-full bg-amber-400 flex items-center justify-center text-white text-[9px] font-bold shrink-0 mt-0.5">AM</div>

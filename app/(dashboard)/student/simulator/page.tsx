@@ -181,8 +181,10 @@ export default function SimulatorPage() {
                     <div className="flex items-center justify-between gap-3 mb-4">
                       <div className="flex items-center gap-3 min-w-0">
                         {/* Accent dot */}
-                        <div className="w-3 h-3 rounded-full shrink-0 ring-2 ring-offset-2 dark:ring-offset-[#161a27]"
-                          style={{ backgroundColor: meta.color, ringColor: meta.color + '40' }} />
+                        <div
+                          className="w-3 h-3 rounded-full shrink-0"
+                          style={{ backgroundColor: meta.color, boxShadow: `0 0 0 2px ${meta.color}40` }}
+                        />
                         <div className="min-w-0">
                           <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 leading-tight">{meta.name}</p>
                           <p className="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-0.5">{meta.code}</p>
