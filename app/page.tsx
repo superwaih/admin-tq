@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 import {
   ArrowRight,
   CheckCircle2,
@@ -149,14 +150,14 @@ export default function LandingPage() {
   const currentPersona = personas.find((p) => p.id === activePersona)!;
 
   return (
-    <div className="min-h-screen bg-[#070b14] text-white antialiased overflow-x-hidden">
+    <div className="min-h-screen bg-[#F8F9FB] text-slate-900 antialiased overflow-x-hidden">
 
       {/* ── Navbar ─────────────────────────────────────────────── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06] bg-[#070b14]/90 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-lora text-xl font-normal text-white tracking-tight">AdmitIQ</span>
-            <span className="rounded-full bg-[#2b5ce6]/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#7b9ef0]">
+            <span className="font-lora text-xl font-normal text-slate-900 tracking-tight">AdmitIQ</span>
+            <span className="rounded-full bg-[#2b5ce6]/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-300">
               Beta
             </span>
           </Link>
@@ -166,7 +167,7 @@ export default function LandingPage() {
               <Link
                 key={l.label}
                 href={l.href}
-                className="text-sm text-[#8e92ad] hover:text-white transition-colors duration-150"
+                className="text-sm text-slate-500 hover:text-slate-900 transition-colors duration-150"
               >
                 {l.label}
               </Link>
@@ -174,6 +175,7 @@ export default function LandingPage() {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             <Link href="/auth/signup">
               <Button className="h-9 rounded-full bg-[#2b5ce6] px-5 text-sm font-semibold text-white hover:bg-[#254ec3] shadow-lg shadow-[#2b5ce6]/20">
                 Get started free
@@ -181,27 +183,30 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden text-[#8e92ad] hover:text-white transition-colors"
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-slate-500 hover:text-slate-900 transition-colors"
+            >
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
 
         {menuOpen && (
-          <div className="md:hidden border-t border-white/[0.06] bg-[#070b14] px-5 py-5 space-y-4">
+          <div className="md:hidden border-t border-gray-200 bg-white px-5 py-5 space-y-4">
             {navLinks.map((l) => (
               <Link
                 key={l.label}
                 href={l.href}
-                className="block text-sm text-[#8e92ad] hover:text-white py-1 transition-colors"
+                className="block text-sm text-slate-500 hover:text-slate-900 py-1 transition-colors"
                 onClick={() => setMenuOpen(false)}
               >
                 {l.label}
               </Link>
             ))}
-            <div className="flex flex-col gap-2 pt-2 border-t border-white/[0.06]">
+            <div className="flex flex-col gap-2 pt-2 border-t border-gray-200">
               <Link href="/auth/signup" onClick={() => setMenuOpen(false)}>
                 <Button className="w-full rounded-full bg-[#2b5ce6] text-sm font-semibold text-white hover:bg-[#254ec3]">
                   Get started free
@@ -226,18 +231,18 @@ export default function LandingPage() {
 
             {/* ── Left: Copy ─────────────────────────────────── */}
             <div className="flex flex-col items-start">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#2b5ce6]/30 bg-[#2b5ce6]/10 px-4 py-1.5 text-xs font-medium text-[#7b9ef0]">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#2b5ce6]/30 bg-[#2b5ce6]/10 px-4 py-1.5 text-xs font-medium text-blue-600 dark:text-blue-300">
                 <Sparkles size={11} />
                 Built for Canadian Grade 12 students
               </div>
 
-              <h1 className="font-lora text-[42px] leading-[1.06] tracking-[-0.02em] text-white sm:text-5xl lg:text-6xl">
+              <h1 className="font-lora text-[42px] leading-[1.06] tracking-[-0.02em] text-slate-900 sm:text-5xl lg:text-6xl">
                 Your AI-powered
                 <br />
                 <span className="admitiq-gradient-text">admissions co-pilot.</span>
               </h1>
 
-              <p className="mt-6 max-w-lg text-base leading-relaxed text-[#8e92ad] sm:text-lg">
+              <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-500 sm:text-lg">
                 Get your exact acceptance probability, AI-crafted essays, MMI practice,
                 and a personalised weekly strategy — all in one place.
               </p>
@@ -249,26 +254,26 @@ export default function LandingPage() {
                   </Button>
                 </Link>
                 <Link href="/auth">
-                  <Button variant="ghost" className="h-12 w-full rounded-full border border-white/10 bg-white/[0.04] px-8 text-sm text-[#c8ccdf] hover:bg-white/[0.08] hover:text-white transition-all sm:w-auto">
+                  <Button variant="ghost" className="h-12 w-full rounded-full border border-gray-200 bg-white px-8 text-sm text-slate-700 hover:bg-gray-50 hover:text-slate-900 transition-all sm:w-auto">
                     Sign in →
                   </Button>
                 </Link>
               </div>
 
-              <p className="mt-3 text-xs text-[#40455e]">No credit card required · Free Essentials Plan</p>
+              <p className="mt-3 text-xs text-slate-400">No credit card required · Free Essentials Plan</p>
 
               {/* Social proof avatars */}
-              <div className="mt-10 flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-5 py-3.5">
+              <div className="mt-10 flex items-center gap-4 rounded-2xl border border-gray-200 bg-white px-5 py-3.5">
                 <div className="flex -space-x-2.5">
                   {['#2b5ce6','#0ca678','#7c3aed','#d97706','#dc2626'].map((c, i) => (
-                    <div key={i} className="h-8 w-8 rounded-full border-2 border-[#070b14] flex items-center justify-center text-[10px] font-bold text-white" style={{ background: c }}>
+                    <div key={i} className="h-8 w-8 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold text-white" style={{ background: c }}>
                       {['P','A','J','S','R'][i]}
                     </div>
                   ))}
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-white">12,000+ students</p>
-                  <p className="text-[11px] text-[#8e92ad]">already boosting their odds</p>
+                  <p className="text-xs font-semibold text-slate-900">12,000+ students</p>
+                  <p className="text-[11px] text-slate-500">already boosting their odds</p>
                 </div>
               </div>
             </div>
@@ -280,33 +285,33 @@ export default function LandingPage() {
               <div className="absolute h-[420px] w-[340px] rounded-full bg-[#2b5ce6]/15 blur-[80px]" />
 
               {/* Floating chip — top left */}
-              <div className="absolute left-2 top-[8%] z-20 flex items-center gap-2 rounded-2xl border border-white/10 bg-[#0d1020]/95 px-3 py-2.5 shadow-2xl backdrop-blur-sm">
+              <div className="absolute left-2 top-[8%] z-20 flex items-center gap-2 rounded-2xl border border-gray-200 bg-white px-3 py-2.5 shadow-2xl backdrop-blur-sm">
                 <div className="h-2 w-2 rounded-full bg-[#0ca678] animate-pulse" />
                 <div>
-                  <p className="text-[9px] font-bold uppercase tracking-widest text-[#8e92ad]">OUAC Live</p>
+                  <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500">OUAC Live</p>
                   <p className="text-xs font-bold text-[#0ca678]">Connected</p>
                 </div>
               </div>
 
               {/* Floating chip — top right */}
-              <div className="absolute right-0 top-[22%] z-20 rounded-2xl border border-white/10 bg-[#0d1020]/95 px-3 py-2.5 shadow-2xl backdrop-blur-sm">
-                <p className="text-[9px] font-bold uppercase tracking-widest text-[#8e92ad]">Avg Probability</p>
+              <div className="absolute right-0 top-[22%] z-20 rounded-2xl border border-gray-200 bg-white px-3 py-2.5 shadow-2xl backdrop-blur-sm">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500">Avg Probability</p>
                 <p className="text-base font-bold text-[#f59e0b]">68.8% <span className="text-[11px] text-[#0ca678]">↑ +4%</span></p>
               </div>
 
               {/* Floating chip — bottom left */}
-              <div className="absolute bottom-[20%] left-0 z-20 flex items-center gap-2.5 rounded-2xl border border-white/10 bg-[#0d1020]/95 px-3 py-2.5 shadow-2xl backdrop-blur-sm">
+              <div className="absolute bottom-[20%] left-0 z-20 flex items-center gap-2.5 rounded-2xl border border-gray-200 bg-white px-3 py-2.5 shadow-2xl backdrop-blur-sm">
                 <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#d97706]/15 text-sm">⚠️</div>
                 <div>
-                  <p className="text-[9px] font-bold uppercase tracking-widest text-[#8e92ad]">Next Deadline</p>
+                  <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500">Next Deadline</p>
                   <p className="text-xs font-bold text-[#d97706]">UofT AIF · 7 days</p>
                 </div>
               </div>
 
               {/* Floating chip — bottom right */}
-              <div className="absolute bottom-[8%] right-2 z-20 rounded-2xl border border-white/10 bg-[#0d1020]/95 px-3 py-2.5 shadow-2xl backdrop-blur-sm">
-                <p className="text-[9px] font-bold uppercase tracking-widest text-[#8e92ad]">This week</p>
-                <p className="text-xs font-bold text-[#7b9ef0]">+16pp UofT odds 🚀</p>
+              <div className="absolute bottom-[8%] right-2 z-20 rounded-2xl border border-gray-200 bg-white px-3 py-2.5 shadow-2xl backdrop-blur-sm">
+                <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500">This week</p>
+                <p className="text-xs font-bold text-blue-600 dark:text-blue-300">+16pp UofT odds 🚀</p>
               </div>
 
               {/* Phone image */}
@@ -325,16 +330,16 @@ export default function LandingPage() {
       </section>
 
       {/* ── Trust strip ────────────────────────────────────────── */}
-      <section className="border-y border-white/[0.05] bg-[#0b0f1c] py-5">
+      <section className="border-y border-gray-200 bg-[#F8F9FB] py-5">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-5">
-            <p className="shrink-0 text-[10px] font-bold uppercase tracking-widest text-[#40455e]">
+            <p className="shrink-0 text-[10px] font-bold uppercase tracking-widest text-slate-400">
               Trusted by students at
             </p>
-            <div className="hidden h-4 w-px bg-white/10 sm:block" />
+            <div className="hidden h-4 w-px bg-gray-200 sm:block" />
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-1.5">
               {universities.map((u) => (
-                <span key={u} className="text-sm font-medium text-[#8e92ad]">{u}</span>
+                <span key={u} className="text-sm font-medium text-slate-500">{u}</span>
               ))}
             </div>
           </div>
@@ -348,10 +353,10 @@ export default function LandingPage() {
             {stats.map((s) => (
               <div
                 key={s.label}
-                className="rounded-2xl border border-white/[0.07] bg-white/[0.02] px-6 py-8 text-center transition-colors hover:bg-white/[0.04]"
+                className="rounded-2xl border border-gray-200 bg-white px-6 py-8 text-center transition-colors hover:bg-gray-50"
               >
-                <p className="font-lora text-4xl font-normal text-white">{s.value}</p>
-                <p className="mt-2 text-sm text-[#8e92ad]">{s.label}</p>
+                <p className="font-lora text-4xl font-normal text-slate-900">{s.value}</p>
+                <p className="mt-2 text-sm text-slate-500">{s.label}</p>
               </div>
             ))}
           </div>
@@ -363,14 +368,14 @@ export default function LandingPage() {
         <div className="mx-auto max-w-7xl lg:px-8">
           <div className="mb-16 text-center">
             <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#2b5ce6]">Everything you need</p>
-            <h2 className="font-lora text-3xl font-normal text-white sm:text-4xl">Built for serious applicants</h2>
-            <p className="mx-auto mt-4 max-w-xl text-[#8e92ad]">
+            <h2 className="font-lora text-3xl font-normal text-slate-900 sm:text-4xl">Built for serious applicants</h2>
+            <p className="mx-auto mt-4 max-w-xl text-slate-500">
               Every tool you need to maximise your chances — from first research to final submission.
             </p>
           </div>
 
           {/* ── Feature row 1: Admission Simulator ── */}
-          <div className="mb-5 overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0b0f1c]">
+          <div className="mb-5 overflow-hidden rounded-3xl border border-gray-200 bg-white">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Phone side */}
               <div className="relative flex items-end justify-center overflow-hidden bg-gradient-to-br from-[#2b5ce6]/10 via-transparent to-transparent px-8 pt-10 pb-0 min-h-[320px]">
@@ -378,17 +383,17 @@ export default function LandingPage() {
                   <div className="absolute bottom-0 left-1/2 h-48 w-72 -translate-x-1/2 rounded-full bg-[#2b5ce6]/20 blur-[60px]" />
                 </div>
                 {/* Floating probability card */}
-                <div className="absolute top-6 right-6 z-20 rounded-2xl border border-white/10 bg-[#0d1020]/90 px-3 py-2.5 shadow-xl backdrop-blur-sm">
-                  <p className="text-[9px] font-bold uppercase tracking-widest text-[#8e92ad]">UofT Eng Science</p>
+                <div className="absolute top-6 right-6 z-20 rounded-2xl border border-gray-200 bg-white px-3 py-2.5 shadow-xl backdrop-blur-sm">
+                  <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500">UofT Eng Science</p>
                   <div className="mt-1 flex items-center gap-2">
-                    <div className="h-1.5 w-20 overflow-hidden rounded-full bg-white/10">
+                    <div className="h-1.5 w-20 overflow-hidden rounded-full bg-gray-100">
                       <div className="h-full w-[72%] rounded-full bg-[#f59e0b]" />
                     </div>
                     <span className="text-sm font-bold text-[#f59e0b]">72%</span>
                   </div>
                 </div>
-                <div className="absolute top-16 left-5 z-20 rounded-2xl border border-white/10 bg-[#0d1020]/90 px-3 py-2 shadow-xl backdrop-blur-sm">
-                  <p className="text-[9px] text-[#8e92ad]">Waterloo CS</p>
+                <div className="absolute top-16 left-5 z-20 rounded-2xl border border-gray-200 bg-white px-3 py-2 shadow-xl backdrop-blur-sm">
+                  <p className="text-[9px] text-slate-500">Waterloo CS</p>
                   <p className="text-sm font-bold text-[#f59e0b]">58% <span className="text-[10px] text-[#0ca678]">↑ +3%</span></p>
                 </div>
                 <img
@@ -404,13 +409,13 @@ export default function LandingPage() {
                   <Target size={20} className="text-[#2b5ce6]" />
                 </div>
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#2b5ce6]">Feature #1</p>
-                <h3 className="font-lora text-2xl font-normal text-white sm:text-3xl">Admission Simulator</h3>
-                <p className="mt-3 text-[#8e92ad] leading-relaxed">
+                <h3 className="font-lora text-2xl font-normal text-slate-900 sm:text-3xl">Admission Simulator</h3>
+                <p className="mt-3 text-slate-500 leading-relaxed">
                   Live acceptance probabilities for every Canadian university program — updated in real-time as your grades change. See exactly where you stand and what to improve.
                 </p>
                 <ul className="mt-5 space-y-2.5">
                   {['Real-time probability for 50+ Canadian programs','Grade sensitivity — see impact of every 1%','OUAC live data integration','Cutoff alerts when you approach thresholds'].map(t => (
-                    <li key={t} className="flex items-center gap-2.5 text-sm text-[#c8ccdf]">
+                    <li key={t} className="flex items-center gap-2.5 text-sm text-slate-700">
                       <CheckCircle2 size={14} className="shrink-0 text-[#2b5ce6]" />
                       {t}
                     </li>
@@ -426,7 +431,7 @@ export default function LandingPage() {
           </div>
 
           {/* ── Feature row 2: AI Essay Coach ── */}
-          <div className="mb-5 overflow-hidden rounded-3xl border border-white/[0.07] bg-[#0b0f1c]">
+          <div className="mb-5 overflow-hidden rounded-3xl border border-gray-200 bg-white">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Text side */}
               <div className="flex flex-col justify-center px-8 py-10 lg:px-12 lg:order-1">
@@ -434,13 +439,13 @@ export default function LandingPage() {
                   <BookOpen size={20} className="text-[#0ca678]" />
                 </div>
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#0ca678]">Feature #2</p>
-                <h3 className="font-lora text-2xl font-normal text-white sm:text-3xl">AI Essay Coach</h3>
-                <p className="mt-3 text-[#8e92ad] leading-relaxed">
+                <h3 className="font-lora text-2xl font-normal text-slate-900 sm:text-3xl">AI Essay Coach</h3>
+                <p className="mt-3 text-slate-500 leading-relaxed">
                   Draft, refine and score AIF essays with AI that knows every school's rubric inside-out. Get sentence-level feedback, structure suggestions, and a final score before you submit.
                 </p>
                 <ul className="mt-5 space-y-2.5">
                   {['Per-sentence AI feedback & rewrite suggestions','Rubric scoring for UofT, Waterloo, McMaster & more','Plagiarism-safe — your voice, enhanced by AI','Essay history & version comparison'].map(t => (
-                    <li key={t} className="flex items-center gap-2.5 text-sm text-[#c8ccdf]">
+                    <li key={t} className="flex items-center gap-2.5 text-sm text-slate-700">
                       <CheckCircle2 size={14} className="shrink-0 text-[#0ca678]" />
                       {t}
                     </li>
@@ -460,12 +465,12 @@ export default function LandingPage() {
                   </div>
                 </div>
                 {/* Essay coach CSS mockup */}
-                <div className="relative z-10 w-full max-w-sm rounded-2xl border border-white/[0.08] bg-[#0d1020] shadow-2xl overflow-hidden">
+                <div className="relative z-10 w-full max-w-sm rounded-2xl border border-gray-200 bg-white shadow-2xl overflow-hidden">
                   {/* Titlebar */}
-                  <div className="flex items-center justify-between border-b border-white/[0.06] bg-[#0f1428] px-4 py-2.5">
+                  <div className="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-2.5">
                     <div className="flex items-center gap-2">
                       <BookOpen size={12} className="text-[#0ca678]" />
-                      <span className="text-[11px] font-semibold text-white">AIF Essay · UofT Engineering</span>
+                      <span className="text-[11px] font-semibold text-slate-900">AIF Essay · UofT Engineering</span>
                     </div>
                     <div className="flex items-center gap-1.5 rounded-full border border-[#0ca678]/30 bg-[#0ca678]/10 px-2 py-0.5">
                       <span className="h-1.5 w-1.5 rounded-full bg-[#0ca678]" />
@@ -474,16 +479,16 @@ export default function LandingPage() {
                   </div>
                   {/* Essay text area mock */}
                   <div className="p-4 space-y-2">
-                    <p className="text-[11px] leading-relaxed text-[#c8ccdf]">
+                    <p className="text-[11px] leading-relaxed text-slate-700">
                       My passion for problem-solving began when I redesigned our school's recycling system, <span className="rounded bg-[#0ca678]/20 px-0.5 text-[#0ca678]">reducing waste by 40%</span> through data analysis and community engagement...
                     </p>
-                    <p className="text-[11px] leading-relaxed text-[#8e92ad]">
+                    <p className="text-[11px] leading-relaxed text-slate-500">
                       <span className="rounded bg-[#d97706]/15 border-b border-[#d97706]/40 text-[#d97706]">This experience shaped my desire</span> to study engineering at the University of Toronto.
                     </p>
                   </div>
                   {/* Feedback panel */}
-                  <div className="border-t border-white/[0.06] bg-white/[0.02] p-4 space-y-2">
-                    <p className="text-[9px] font-bold uppercase tracking-widest text-[#8e92ad]">AI Feedback</p>
+                  <div className="border-t border-gray-200 bg-gray-50 p-4 space-y-2">
+                    <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500">AI Feedback</p>
                     <div className="flex items-start gap-2 rounded-xl border border-[#0ca678]/20 bg-[#0ca678]/8 px-3 py-2">
                       <span className="text-[10px]">✅</span>
                       <p className="text-[10px] text-[#0ca678]"><strong>Strong:</strong> Quantified impact with specific data point. UofT rubric rewards measurable results.</p>
@@ -501,12 +506,12 @@ export default function LandingPage() {
           {/* ── Remaining 4 feature cards ── */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {features.slice(2).map((f) => (
-              <div key={f.title} className="group rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition-all duration-300 hover:border-white/10 hover:bg-white/[0.05] hover:-translate-y-0.5">
+              <div key={f.title} className="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:border-gray-300 hover:bg-gray-50 hover:-translate-y-0.5">
                 <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: f.bg }}>
                   <f.icon size={20} style={{ color: f.accent }} />
                 </div>
-                <h3 className="mb-2 text-sm font-semibold text-white">{f.title}</h3>
-                <p className="text-sm leading-relaxed text-[#8e92ad]">{f.description}</p>
+                <h3 className="mb-2 text-sm font-semibold text-slate-900">{f.title}</h3>
+                <p className="text-sm leading-relaxed text-slate-500">{f.description}</p>
               </div>
             ))}
           </div>
@@ -514,23 +519,23 @@ export default function LandingPage() {
       </section>
 
       {/* ── Who is it for ──────────────────────────────────────── */}
-      <section className="bg-[#0b0f1c] px-5 py-24">
+      <section className="bg-[#F8F9FB] px-5 py-24">
         <div className="mx-auto max-w-7xl lg:px-8">
           <div className="mb-12 text-center">
             <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#2b5ce6]">Made for everyone</p>
-            <h2 className="font-lora text-3xl font-normal text-white sm:text-4xl">Who is AdmitIQ for?</h2>
-            <p className="mt-4 text-[#8e92ad]">Choose your role to explore what AdmitIQ does for you.</p>
+            <h2 className="font-lora text-3xl font-normal text-slate-900 sm:text-4xl">Who is AdmitIQ for?</h2>
+            <p className="mt-4 text-slate-500">Choose your role to explore what AdmitIQ does for you.</p>
           </div>
 
           {/* Persona tabs */}
           <div className="mb-10 flex justify-center">
-            <div className="inline-flex gap-1 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-1">
+            <div className="inline-flex gap-1 rounded-2xl border border-gray-200 bg-white p-1">
               {personas.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => setActivePersona(p.id)}
                   className={`rounded-xl px-6 py-2.5 text-sm font-medium transition-all duration-200 ${
-                    activePersona === p.id ? 'bg-white/10 text-white shadow-sm' : 'text-[#8e92ad] hover:text-white'
+                    activePersona === p.id ? 'bg-gray-100 text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900'
                   }`}
                 >
                   {p.label}
@@ -542,7 +547,7 @@ export default function LandingPage() {
           {/* Split card */}
           <div
             key={currentPersona.id}
-            className="overflow-hidden rounded-3xl border bg-[#0d1020] transition-all duration-300"
+            className="overflow-hidden rounded-3xl border bg-white transition-all duration-300"
             style={{ borderColor: `${currentPersona.accent}22` }}
           >
             <div className="grid grid-cols-1 lg:grid-cols-5">
@@ -556,8 +561,8 @@ export default function LandingPage() {
                   {currentPersona.label}
                 </div>
 
-                <p className="mb-2 font-lora text-2xl font-normal text-white sm:text-3xl">{currentPersona.tagline}</p>
-                <p className="mb-8 text-sm text-[#8e92ad]">Here's exactly what AdmitIQ gives you:</p>
+                <p className="mb-2 font-lora text-2xl font-normal text-slate-900 sm:text-3xl">{currentPersona.tagline}</p>
+                <p className="mb-8 text-sm text-slate-500">Here's exactly what AdmitIQ gives you:</p>
 
                 <ul className="mb-10 space-y-4">
                   {currentPersona.perks.map((perk) => (
@@ -568,7 +573,7 @@ export default function LandingPage() {
                       >
                         <CheckCircle2 size={12} style={{ color: currentPersona.accent }} />
                       </div>
-                      <span className="text-sm text-white leading-relaxed">{perk}</span>
+                      <span className="text-sm text-slate-900 leading-relaxed">{perk}</span>
                     </li>
                   ))}
                 </ul>
@@ -597,20 +602,20 @@ export default function LandingPage() {
 
                 {/* Persona-specific floating badge */}
                 {activePersona === 'student' && (
-                  <div className="absolute top-6 right-4 z-20 rounded-2xl border border-white/10 bg-[#0d1020]/90 px-3 py-2 shadow-xl backdrop-blur-sm">
-                    <p className="text-[9px] text-[#8e92ad] uppercase tracking-widest font-bold">AIF Progress</p>
+                  <div className="absolute top-6 right-4 z-20 rounded-2xl border border-gray-200 bg-white px-3 py-2 shadow-xl backdrop-blur-sm">
+                    <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">AIF Progress</p>
                     <p className="text-sm font-bold text-[#d97706]">65% <span className="text-[10px] text-[#0ca678]">· UofT</span></p>
                   </div>
                 )}
                 {activePersona === 'counselor' && (
-                  <div className="absolute top-6 right-4 z-20 rounded-2xl border border-white/10 bg-[#0d1020]/90 px-3 py-2.5 shadow-xl backdrop-blur-sm">
-                    <p className="text-[9px] text-[#8e92ad] uppercase tracking-widest font-bold">Cohort Risk</p>
+                  <div className="absolute top-6 right-4 z-20 rounded-2xl border border-gray-200 bg-white px-3 py-2.5 shadow-xl backdrop-blur-sm">
+                    <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Cohort Risk</p>
                     <p className="text-sm font-bold text-[#0891b2]">3 at-risk <span className="text-[10px] text-[#dc2626]">⚠</span></p>
                   </div>
                 )}
                 {activePersona === 'parent' && (
-                  <div className="absolute top-6 right-4 z-20 rounded-2xl border border-white/10 bg-[#0d1020]/90 px-3 py-2.5 shadow-xl backdrop-blur-sm">
-                    <p className="text-[9px] text-[#8e92ad] uppercase tracking-widest font-bold">Next Milestone</p>
+                  <div className="absolute top-6 right-4 z-20 rounded-2xl border border-gray-200 bg-white px-3 py-2.5 shadow-xl backdrop-blur-sm">
+                    <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Next Milestone</p>
                     <p className="text-sm font-bold text-[#7c3aed]">Dec 1 · OUAC</p>
                   </div>
                 )}
@@ -629,12 +634,12 @@ export default function LandingPage() {
       </section>
 
       {/* ── Mobile App Download ────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#070b14] px-5 py-28">
+      <section className="relative overflow-hidden bg-[#F8F9FB] px-5 py-28">
         {/* Background glows */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute right-0 top-0 h-[600px] w-[600px] rounded-full bg-[#2b5ce6]/8 blur-[130px]" />
           <div className="absolute -bottom-20 left-0 h-[400px] w-[500px] rounded-full bg-[#7c3aed]/8 blur-[120px]" />
-          <div className="absolute left-1/2 top-1/2 h-[1px] w-full -translate-y-1/2 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
+          <div className="absolute left-1/2 top-1/2 h-[1px] w-full -translate-y-1/2 bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl lg:px-8">
@@ -643,18 +648,18 @@ export default function LandingPage() {
             {/* ── Left: Copy + Buttons ──────────────────────────── */}
             <div className="flex flex-col items-start">
               {/* Badge */}
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#2b5ce6]/30 bg-[#2b5ce6]/10 px-4 py-1.5 text-xs font-medium text-[#7b9ef0]">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#2b5ce6]/30 bg-[#2b5ce6]/10 px-4 py-1.5 text-xs font-medium text-blue-600 dark:text-blue-300">
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
                 iOS & Android — Coming Soon
               </div>
 
-              <h2 className="font-lora text-3xl font-normal leading-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="font-lora text-3xl font-normal leading-tight text-slate-900 sm:text-4xl lg:text-5xl">
                 Take AdmitIQ
                 <br />
                 <span className="admitiq-gradient-text">everywhere you go.</span>
               </h2>
 
-              <p className="mt-5 max-w-md text-base leading-relaxed text-[#8e92ad]">
+              <p className="mt-5 max-w-md text-base leading-relaxed text-slate-500">
                 Get your personalised admission dashboard, AI essay feedback, and MMI practice sessions right in your pocket — available on iPhone and Android.
               </p>
 
@@ -669,7 +674,7 @@ export default function LandingPage() {
                 ].map((item) => (
                   <li key={item.text} className="flex items-center gap-3">
                     <span className="text-base leading-none">{item.icon}</span>
-                    <span className="text-sm text-[#c8ccdf]">{item.text}</span>
+                    <span className="text-sm text-slate-700">{item.text}</span>
                   </li>
                 ))}
               </ul>
@@ -677,21 +682,21 @@ export default function LandingPage() {
               {/* Store Buttons */}
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 {/* App Store */}
-                <button className="group relative flex items-center gap-3.5 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.08] hover:shadow-xl hover:shadow-black/40 hover:-translate-y-0.5">
-                  <svg className="h-8 w-8 shrink-0 text-white" viewBox="0 0 24 24" fill="currentColor">
+                <button className="group relative flex items-center gap-3.5 overflow-hidden rounded-2xl border border-gray-200 bg-white px-5 py-4 transition-all duration-300 hover:border-gray-300 hover:bg-gray-50 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-0.5">
+                  <svg className="h-8 w-8 shrink-0 text-slate-900" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                   </svg>
                   <div className="text-left">
-                    <p className="text-[10px] font-medium uppercase tracking-widest text-[#8e92ad]">Download on the</p>
-                    <p className="text-base font-semibold text-white leading-tight">App Store</p>
+                    <p className="text-[10px] font-medium uppercase tracking-widest text-slate-500">Download on the</p>
+                    <p className="text-base font-semibold text-slate-900 leading-tight">App Store</p>
                   </div>
-                  <div className="ml-auto shrink-0 rounded-lg bg-[#2b5ce6]/15 px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-[#7b9ef0]">
+                  <div className="ml-auto shrink-0 rounded-lg bg-[#2b5ce6]/15 px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-300">
                     Soon
                   </div>
                 </button>
 
                 {/* Google Play */}
-                <button className="group relative flex items-center gap-3.5 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.08] hover:shadow-xl hover:shadow-black/40 hover:-translate-y-0.5">
+                <button className="group relative flex items-center gap-3.5 overflow-hidden rounded-2xl border border-gray-200 bg-white px-5 py-4 transition-all duration-300 hover:border-gray-300 hover:bg-gray-50 hover:shadow-xl hover:shadow-black/10 hover:-translate-y-0.5">
                   <svg className="h-8 w-8 shrink-0" viewBox="0 0 24 24" fill="none">
                     <path d="M3.18 23.76c.37.2.8.22 1.2.05l11.4-6.58-2.53-2.54-10.07 9.07z" fill="#EA4335"/>
                     <path d="M20.54 10.27L17.7 8.66 14.9 11.4l2.82 2.81 2.82-1.62c.8-.46.8-1.87 0-2.32z" fill="#FBBC04"/>
@@ -699,17 +704,17 @@ export default function LandingPage() {
                     <path d="M15.75 14.77l-3.27-3.27L2.1 22.3c.37.4.96.44 1.64.1l12.01-7.63z" fill="#34A853"/>
                   </svg>
                   <div className="text-left">
-                    <p className="text-[10px] font-medium uppercase tracking-widest text-[#8e92ad]">Get it on</p>
-                    <p className="text-base font-semibold text-white leading-tight">Google Play</p>
+                    <p className="text-[10px] font-medium uppercase tracking-widest text-slate-500">Get it on</p>
+                    <p className="text-base font-semibold text-slate-900 leading-tight">Google Play</p>
                   </div>
-                  <div className="ml-auto shrink-0 rounded-lg bg-[#2b5ce6]/15 px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-[#7b9ef0]">
+                  <div className="ml-auto shrink-0 rounded-lg bg-[#2b5ce6]/15 px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-300">
                     Soon
                   </div>
                 </button>
               </div>
 
               {/* Sub-note */}
-              <p className="mt-4 text-xs text-[#40455e]">
+              <p className="mt-4 text-xs text-slate-400">
                 Join 12,000+ students already on the waitlist · Free Essentials included
               </p>
             </div>
@@ -742,8 +747,8 @@ export default function LandingPage() {
                 </div>
                 {/* Samsung label */}
                 <div className="mt-4 text-center">
-                  <p className="text-[10px] font-semibold text-[#8e92ad]">Samsung Galaxy S25</p>
-                  <p className="text-[9px] text-[#40455e]">Admission Simulator</p>
+                  <p className="text-[10px] font-semibold text-slate-500">Samsung Galaxy S25</p>
+                  <p className="text-[9px] text-slate-400">Admission Simulator</p>
                 </div>
               </div>
 
@@ -775,8 +780,8 @@ export default function LandingPage() {
                 </div>
                 {/* iPhone label */}
                 <div className="mt-4 text-center">
-                  <p className="text-[10px] font-semibold text-[#8e92ad]">iPhone 17</p>
-                  <p className="text-[9px] text-[#40455e]">AI Essay Coach</p>
+                  <p className="text-[10px] font-semibold text-slate-500">iPhone 17</p>
+                  <p className="text-[9px] text-slate-400">AI Essay Coach</p>
                 </div>
               </div>
 
@@ -785,7 +790,7 @@ export default function LandingPage() {
 
           {/* ── Bottom strip: platform compatibility ── */}
           <div className="mt-20 flex flex-col items-center gap-6">
-            <div className="h-px w-full max-w-2xl bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+            <div className="h-px w-full max-w-2xl bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
             <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
               {[
                 { label: 'iOS 17+', icon: '🍎' },
@@ -796,7 +801,7 @@ export default function LandingPage() {
               ].map(item => (
                 <div key={item.label} className="flex items-center gap-2">
                   <span className="text-base">{item.icon}</span>
-                  <span className="text-sm font-medium text-[#8e92ad]">{item.label}</span>
+                  <span className="text-sm font-medium text-slate-500">{item.label}</span>
                 </div>
               ))}
             </div>
@@ -812,10 +817,10 @@ export default function LandingPage() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-2xl text-center">
-          <h2 className="font-lora text-3xl font-normal text-white sm:text-4xl lg:text-5xl">
+          <h2 className="font-lora text-3xl font-normal text-slate-900 sm:text-4xl lg:text-5xl">
             Ready to raise your acceptance odds?
           </h2>
-          <p className="mx-auto mt-5 max-w-lg text-lg text-[#8e92ad]">
+          <p className="mx-auto mt-5 max-w-lg text-lg text-slate-500">
             Join 12,000+ students who've used AdmitIQ to get into their dream programs.
           </p>
 
@@ -828,30 +833,30 @@ export default function LandingPage() {
             <Link href="/auth">
               <Button
                 variant="ghost"
-                className="h-14 w-full rounded-full border border-white/10 bg-white/[0.04] px-8 text-base text-[#c8ccdf] hover:bg-white/[0.08] hover:text-white sm:w-auto"
+                className="h-14 w-full rounded-full border border-gray-200 bg-white px-8 text-base text-slate-700 hover:bg-gray-50 hover:text-slate-900 sm:w-auto"
               >
                 Sign in →
               </Button>
             </Link>
           </div>
-          <p className="mt-4 text-xs text-[#40455e]">No credit card required · Cancel anytime</p>
+          <p className="mt-4 text-xs text-slate-400">No credit card required · Cancel anytime</p>
         </div>
       </section>
 
       {/* ── Footer ─────────────────────────────────────────────── */}
-      <footer className="border-t border-white/[0.06] bg-[#070b14] px-5 py-10">
+      <footer className="border-t border-gray-200 bg-[#F8F9FB] px-5 py-10">
         <div className="mx-auto max-w-7xl lg:px-8">
           <div className="flex flex-col items-center gap-5 sm:flex-row sm:justify-between">
-            <Link href="/" className="font-lora text-lg font-normal text-white tracking-tight">
+            <Link href="/" className="font-lora text-lg font-normal text-slate-900 tracking-tight">
               AdmitIQ
             </Link>
-            <p className="text-xs text-[#40455e]">© 2026 AdmitIQ. Built for Canadian students.</p>
+            <p className="text-xs text-slate-400">© 2026 AdmitIQ. Built for Canadian students.</p>
             <div className="flex items-center gap-5">
               {['Privacy', 'Terms', 'Contact'].map((item) => (
                 <Link
                   key={item}
                   href="#"
-                  className="text-xs text-[#40455e] transition-colors hover:text-[#8e92ad]"
+                  className="text-xs text-slate-400 transition-colors hover:text-slate-600"
                 >
                   {item}
                 </Link>

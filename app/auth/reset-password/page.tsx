@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, KeyRound, Mail, Loader2, CheckCircle2, RotateCcw } from 'lucide-react';
 import { useAuth } from '@/src/hooks/useAuth';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 const ACCENT = '#2b5ce6';
 const ACCENT_ALPHA = 'rgba(43,92,230,0.14)';
@@ -28,7 +29,8 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-[#070b14] px-5 py-12 antialiased">
+    <div className="relative flex min-h-screen items-center justify-center bg-[#F8F9FB] px-5 py-12 antialiased">
+      <ThemeToggle floating />
 
       {/* Background glow */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -40,14 +42,14 @@ export default function ResetPasswordPage() {
         {/* Back link */}
         <Link
           href="/auth"
-          className="mb-8 flex items-center gap-1.5 text-sm text-[#8e92ad] transition-colors hover:text-white"
+          className="mb-8 flex items-center gap-1.5 text-sm text-slate-500 transition-colors hover:text-slate-900"
         >
           <ArrowLeft size={15} />
           Back to sign in
         </Link>
 
         {/* Card */}
-        <div className="rounded-3xl border border-white/[0.07] bg-[#0d1020] p-8 sm:p-10">
+        <div className="rounded-3xl border border-gray-100 bg-white p-8 sm:p-10">
 
           {isSubmitted ? (
             /* ── Success state ────────────────────────────────────── */
@@ -60,12 +62,12 @@ export default function ResetPasswordPage() {
               </div>
 
               <div className="space-y-2">
-                <h2 className="font-lora text-2xl font-normal text-white">Check your inbox</h2>
-                <p className="text-sm leading-relaxed text-[#8e92ad]">
+                <h2 className="font-lora text-2xl font-normal text-slate-900">Check your inbox</h2>
+                <p className="text-sm leading-relaxed text-slate-500">
                   We sent a password reset link to
                 </p>
-                <p className="text-sm font-semibold text-white">{email}</p>
-                <p className="text-xs text-[#8e92ad]">
+                <p className="text-sm font-semibold text-slate-900">{email}</p>
+                <p className="text-xs text-slate-500">
                   The link expires in 15 minutes. Check your spam folder if you don't see it.
                 </p>
               </div>
@@ -84,7 +86,7 @@ export default function ResetPasswordPage() {
                   type="button"
                   onClick={handleRetry}
                   disabled={loading}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] py-3 text-xs font-medium text-[#8e92ad] transition-all hover:bg-white/[0.08] hover:text-white disabled:opacity-50"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-medium text-slate-500 transition-all hover:bg-gray-50 hover:text-slate-900 disabled:opacity-50"
                 >
                   {loading ? (
                     <Loader2 size={14} className="animate-spin" />
@@ -110,12 +112,12 @@ export default function ResetPasswordPage() {
               {/* Heading */}
               <div className="space-y-1.5">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                     AdmitIQ
                   </span>
                 </div>
-                <h2 className="font-lora text-3xl font-normal text-white">Reset your password</h2>
-                <p className="text-sm leading-relaxed text-[#8e92ad]">
+                <h2 className="font-lora text-3xl font-normal text-slate-900">Reset your password</h2>
+                <p className="text-sm leading-relaxed text-slate-500">
                   Enter your email and we'll send a reset link within 2 minutes.
                 </p>
               </div>
@@ -130,13 +132,13 @@ export default function ResetPasswordPage() {
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                     Email address
                   </label>
                   <div className="relative">
                     <Mail
                       size={15}
-                      className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#40455e]"
+                      className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
                     />
                     <input
                       type="email"
@@ -177,7 +179,7 @@ export default function ResetPasswordPage() {
               </form>
 
               {/* Footer */}
-              <p className="text-center text-xs text-[#40455e]">
+              <p className="text-center text-xs text-slate-400">
                 Didn't receive an email? Check your spam folder or{' '}
                 <button
                   type="button"

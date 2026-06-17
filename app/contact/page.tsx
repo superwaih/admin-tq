@@ -9,6 +9,7 @@ import {
   Twitter, Instagram, Linkedin, Send, AlertCircle, X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 // ── Data ───────────────────────────────────────────────────────────────────
 
@@ -231,14 +232,14 @@ export default function ContactPage() {
   const faqCategory = FAQ_CATEGORIES.find(c => c.id === activeCategory)!;
 
   return (
-    <div className="min-h-screen bg-[#070b14] text-white antialiased overflow-x-hidden">
+    <div className="min-h-screen bg-[#F8F9FB] text-slate-900 antialiased overflow-x-hidden">
 
       {/* ── Navbar ──────────────────────────────────────────────── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06] bg-[#070b14]/90 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 bg-[#F8F9FB]/90 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-lora text-xl font-normal text-white tracking-tight">AdmitIQ</span>
-            <span className="rounded-full bg-[#2b5ce6]/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-[#7b9ef0]">Beta</span>
+            <span className="font-lora text-xl font-normal text-slate-900 tracking-tight">AdmitIQ</span>
+            <span className="rounded-full bg-[#2b5ce6]/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-300">Beta</span>
           </Link>
           <div className="hidden md:flex items-center gap-7">
             {[
@@ -247,29 +248,33 @@ export default function ContactPage() {
               { label: 'Contact Us', href: '/contact' },
             ].map(l => (
               <Link key={l.label} href={l.href}
-                className={`text-sm transition-colors duration-150 ${l.href === '/contact' ? 'text-white font-semibold' : 'text-[#8e92ad] hover:text-white'}`}>
+                className={`text-sm transition-colors duration-150 ${l.href === '/contact' ? 'text-slate-900 font-semibold' : 'text-slate-500 hover:text-slate-900'}`}>
                 {l.label}
               </Link>
             ))}
           </div>
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             <Link href="/auth">
-              <Button variant="ghost" className="h-9 rounded-full px-4 text-sm text-[#8e92ad] hover:text-white hover:bg-white/5">Sign in</Button>
+              <Button variant="ghost" className="h-9 rounded-full px-4 text-sm text-slate-500 hover:text-slate-900 hover:bg-gray-50">Sign in</Button>
             </Link>
             <Link href="/auth/signup">
               <Button className="h-9 rounded-full bg-[#2b5ce6] px-5 text-sm font-semibold text-white hover:bg-[#254ec3] shadow-lg shadow-[#2b5ce6]/20">Get started free</Button>
             </Link>
           </div>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-[#8e92ad] hover:text-white transition-colors">
-            {menuOpen ? <X size={22} /> : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button onClick={() => setMenuOpen(!menuOpen)} className="text-slate-500 hover:text-slate-900 transition-colors">
+              {menuOpen ? <X size={22} /> : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>}
+            </button>
+          </div>
         </div>
         {menuOpen && (
-          <div className="md:hidden border-t border-white/[0.06] bg-[#070b14] px-5 py-5 space-y-4">
+          <div className="md:hidden border-t border-gray-200 bg-[#F8F9FB] px-5 py-5 space-y-4">
             {[{ label: 'Features', href: '/#features' }, { label: 'Pricing', href: '/pricing' }, { label: 'Contact Us', href: '/contact' }].map(l => (
-              <Link key={l.label} href={l.href} className="block text-sm text-[#8e92ad] hover:text-white py-1" onClick={() => setMenuOpen(false)}>{l.label}</Link>
+              <Link key={l.label} href={l.href} className="block text-sm text-slate-500 hover:text-slate-900 py-1" onClick={() => setMenuOpen(false)}>{l.label}</Link>
             ))}
-            <div className="flex flex-col gap-2 pt-2 border-t border-white/[0.06]">
+            <div className="flex flex-col gap-2 pt-2 border-t border-gray-200">
               <Link href="/auth/signup" onClick={() => setMenuOpen(false)}>
                 <Button className="w-full rounded-full bg-[#2b5ce6] text-sm font-semibold text-white hover:bg-[#254ec3]">Get started free</Button>
               </Link>
@@ -285,25 +290,25 @@ export default function ContactPage() {
           <div className="absolute right-0 top-0 h-[300px] w-[400px] rounded-full bg-[#7c3aed]/6 blur-[100px]" />
         </div>
         <div className="relative z-10 mx-auto max-w-3xl text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#2b5ce6]/30 bg-[#2b5ce6]/10 px-4 py-1.5 text-xs font-medium text-[#7b9ef0]">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#2b5ce6]/30 bg-[#2b5ce6]/10 px-4 py-1.5 text-xs font-medium text-blue-600 dark:text-blue-300">
             <span className="h-1.5 w-1.5 rounded-full bg-[#0ca678] animate-pulse" />
             Support team online · avg. response &lt; 2 hrs
           </div>
-          <h1 className="font-lora text-4xl font-normal leading-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="font-lora text-4xl font-normal leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
             How can we
             <br />
             <span className="admitiq-gradient-text">help you today?</span>
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#8e92ad]">
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-slate-500">
             Whether you have a question, need a demo, or want to share feedback — our team is ready to help. Reach out any time.
           </p>
 
           {/* Support stats */}
           <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4 max-w-2xl mx-auto">
             {SUPPORT_STATS.map(s => (
-              <div key={s.label} className="rounded-2xl border border-white/[0.07] bg-white/[0.02] px-4 py-4 text-center">
-                <p className="font-lora text-2xl font-normal text-white">{s.value}</p>
-                <p className="mt-1 text-xs text-[#8e92ad]">{s.label}</p>
+              <div key={s.label} className="rounded-2xl border border-gray-100 bg-white px-4 py-4 text-center">
+                <p className="font-lora text-2xl font-normal text-slate-900">{s.value}</p>
+                <p className="mt-1 text-xs text-slate-500">{s.label}</p>
               </div>
             ))}
           </div>
@@ -317,7 +322,7 @@ export default function ContactPage() {
 
             {/* ── Contact Form (3/5) ─────────────────────────────── */}
             <div className="lg:col-span-3">
-              <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 sm:p-8">
+              <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8">
 
                 {submitted ? (
                   /* ── Success state ── */
@@ -326,17 +331,17 @@ export default function ContactPage() {
                       <CheckCircle2 size={32} className="text-[#0ca678]" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white">Message received!</h3>
-                      <p className="mt-2 text-sm text-[#8e92ad] max-w-sm">
-                        Thanks for reaching out, <strong className="text-white">{name.split(' ')[0]}</strong>. We've sent a confirmation to <strong className="text-white">{email}</strong> and will be in touch shortly.
+                      <h3 className="text-xl font-bold text-slate-900">Message received!</h3>
+                      <p className="mt-2 text-sm text-slate-500 max-w-sm">
+                        Thanks for reaching out, <strong className="text-slate-900">{name.split(' ')[0]}</strong>. We've sent a confirmation to <strong className="text-slate-900">{email}</strong> and will be in touch shortly.
                       </p>
                       {enquiryType && RESPONSE_TIMES[enquiryType] && (
-                        <p className="mt-3 text-xs text-[#7b9ef0] italic">{RESPONSE_TIMES[enquiryType]}</p>
+                        <p className="mt-3 text-xs text-blue-600 dark:text-blue-300 italic">{RESPONSE_TIMES[enquiryType]}</p>
                       )}
                     </div>
                     <Button
                       onClick={() => { setSubmitted(false); setName(''); setEmail(''); setPhone(''); setMessage(''); setEnquiryType(''); }}
-                      className="mt-2 rounded-full border border-white/10 bg-white/[0.04] px-6 py-2.5 text-sm text-[#c8ccdf] hover:bg-white/[0.08]"
+                      className="mt-2 rounded-full border border-gray-200 bg-white px-6 py-2.5 text-sm text-slate-700 hover:bg-gray-50"
                     >
                       Send another message
                     </Button>
@@ -344,13 +349,13 @@ export default function ContactPage() {
                 ) : (
                   <form onSubmit={handleSubmit} noValidate className="space-y-6">
                     <div>
-                      <h2 className="text-lg font-bold text-white">Send us a message</h2>
-                      <p className="mt-1 text-sm text-[#8e92ad]">Fill out the form and we'll get back to you as soon as possible.</p>
+                      <h2 className="text-lg font-bold text-slate-900">Send us a message</h2>
+                      <p className="mt-1 text-sm text-slate-500">Fill out the form and we'll get back to you as soon as possible.</p>
                     </div>
 
                     {/* ── I am a… ── */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-widest text-[#8e92ad] mb-3">I am a…</label>
+                      <label className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">I am a…</label>
                       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                         {USER_TYPES.map(({ id, label, Icon, color }) => (
                           <button
@@ -359,13 +364,13 @@ export default function ContactPage() {
                             onClick={() => setUserType(id)}
                             className={`flex flex-col items-center gap-2 rounded-xl border-2 p-3 transition-all duration-200 ${
                               userType === id
-                                ? 'border-current bg-white/[0.06]'
-                                : 'border-white/[0.07] bg-transparent hover:border-white/15 hover:bg-white/[0.03]'
+                                ? 'border-current bg-gray-50'
+                                : 'border-gray-100 bg-transparent hover:border-gray-300 hover:bg-white'
                             }`}
                             style={userType === id ? { borderColor: color, color } : { color: '#8e92ad' }}
                           >
                             <Icon size={18} />
-                            <span className="text-[11px] font-semibold leading-none text-white">{label}</span>
+                            <span className="text-[11px] font-semibold leading-none text-slate-900">{label}</span>
                           </button>
                         ))}
                       </div>
@@ -373,26 +378,26 @@ export default function ContactPage() {
 
                     {/* ── Enquiry type ── */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-widest text-[#8e92ad] mb-2">
+                      <label className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
                         Enquiry type <span className="text-rose-400">*</span>
                       </label>
                       <div className="relative">
                         <select
                           value={enquiryType}
                           onChange={e => { setEnquiryType(e.target.value); setErrors(prev => ({ ...prev, enquiry: '' })); }}
-                          className={`w-full appearance-none rounded-xl border bg-[#0d1020] px-4 py-3 text-sm pr-10 outline-none transition-all ${
-                            errors.enquiry ? 'border-rose-500/60 focus:border-rose-500' : 'border-white/[0.08] focus:border-[#2b5ce6]/60'
-                          } ${enquiryType ? 'text-white' : 'text-[#8e92ad]'}`}
+                          className={`w-full appearance-none rounded-xl border bg-white px-4 py-3 text-sm pr-10 outline-none transition-all ${
+                            errors.enquiry ? 'border-rose-500/60 focus:border-rose-500' : 'border-gray-200 focus:border-[#2b5ce6]/60'
+                          } ${enquiryType ? 'text-slate-900' : 'text-slate-500'}`}
                         >
                           {ENQUIRY_TYPES.map(t => (
-                            <option key={t.value} value={t.value} className="bg-[#0d1020]">{t.label}</option>
+                            <option key={t.value} value={t.value} className="bg-white">{t.label}</option>
                           ))}
                         </select>
-                        <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#8e92ad]" />
+                        <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-500" />
                       </div>
                       {errors.enquiry && <p className="mt-1 flex items-center gap-1 text-xs text-rose-400"><AlertCircle size={11} />{errors.enquiry}</p>}
                       {enquiryType && RESPONSE_TIMES[enquiryType] && (
-                        <p className="mt-1.5 text-xs text-[#7b9ef0] flex items-center gap-1.5">
+                        <p className="mt-1.5 text-xs text-blue-600 dark:text-blue-300 flex items-center gap-1.5">
                           <Clock size={11} />{RESPONSE_TIMES[enquiryType]}
                         </p>
                       )}
@@ -401,7 +406,7 @@ export default function ContactPage() {
                     {/* ── Name + Email ── */}
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-widest text-[#8e92ad] mb-2">
+                        <label className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
                           Full name <span className="text-rose-400">*</span>
                         </label>
                         <input
@@ -409,14 +414,14 @@ export default function ContactPage() {
                           value={name}
                           onChange={e => { setName(e.target.value); setErrors(prev => ({ ...prev, name: '' })); }}
                           placeholder="Priya Mehta"
-                          className={`w-full rounded-xl border bg-[#0d1020] px-4 py-3 text-sm text-white placeholder:text-[#4b4f6a] outline-none transition-all ${
-                            errors.name ? 'border-rose-500/60 focus:border-rose-500' : 'border-white/[0.08] focus:border-[#2b5ce6]/60'
+                          className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all ${
+                            errors.name ? 'border-rose-500/60 focus:border-rose-500' : 'border-gray-200 focus:border-[#2b5ce6]/60'
                           }`}
                         />
                         {errors.name && <p className="mt-1 flex items-center gap-1 text-xs text-rose-400"><AlertCircle size={11} />{errors.name}</p>}
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-widest text-[#8e92ad] mb-2">
+                        <label className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
                           Email address <span className="text-rose-400">*</span>
                         </label>
                         <input
@@ -424,8 +429,8 @@ export default function ContactPage() {
                           value={email}
                           onChange={e => { setEmail(e.target.value); setErrors(prev => ({ ...prev, email: '' })); }}
                           placeholder="priya@email.com"
-                          className={`w-full rounded-xl border bg-[#0d1020] px-4 py-3 text-sm text-white placeholder:text-[#4b4f6a] outline-none transition-all ${
-                            errors.email ? 'border-rose-500/60 focus:border-rose-500' : 'border-white/[0.08] focus:border-[#2b5ce6]/60'
+                          className={`w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all ${
+                            errors.email ? 'border-rose-500/60 focus:border-rose-500' : 'border-gray-200 focus:border-[#2b5ce6]/60'
                           }`}
                         />
                         {errors.email && <p className="mt-1 flex items-center gap-1 text-xs text-rose-400"><AlertCircle size={11} />{errors.email}</p>}
@@ -434,21 +439,21 @@ export default function ContactPage() {
 
                     {/* ── Phone (optional) ── */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-widest text-[#8e92ad] mb-2">
-                        Phone number <span className="text-[#40455e] font-normal normal-case text-[10px] ml-1">optional</span>
+                      <label className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+                        Phone number <span className="text-slate-400 font-normal normal-case text-[10px] ml-1">optional</span>
                       </label>
                       <input
                         type="tel"
                         value={phone}
                         onChange={e => setPhone(e.target.value)}
                         placeholder="+1 (416) 555-0100"
-                        className="w-full rounded-xl border border-white/[0.08] bg-[#0d1020] px-4 py-3 text-sm text-white placeholder:text-[#4b4f6a] outline-none transition-all focus:border-[#2b5ce6]/60"
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:border-[#2b5ce6]/60"
                       />
                     </div>
 
                     {/* ── Message ── */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-widest text-[#8e92ad] mb-2">
+                      <label className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
                         Message <span className="text-rose-400">*</span>
                       </label>
                       <textarea
@@ -456,15 +461,15 @@ export default function ContactPage() {
                         onChange={e => { setMessage(e.target.value); setErrors(prev => ({ ...prev, message: '' })); }}
                         rows={5}
                         placeholder="Tell us what's on your mind — be as detailed as you like…"
-                        className={`w-full resize-none rounded-xl border bg-[#0d1020] px-4 py-3 text-sm text-white placeholder:text-[#4b4f6a] outline-none transition-all ${
-                          errors.message ? 'border-rose-500/60 focus:border-rose-500' : 'border-white/[0.08] focus:border-[#2b5ce6]/60'
+                        className={`w-full resize-none rounded-xl border bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-all ${
+                          errors.message ? 'border-rose-500/60 focus:border-rose-500' : 'border-gray-200 focus:border-[#2b5ce6]/60'
                         }`}
                       />
                       <div className="mt-1 flex items-center justify-between">
                         {errors.message
                           ? <p className="flex items-center gap-1 text-xs text-rose-400"><AlertCircle size={11} />{errors.message}</p>
                           : <span />}
-                        <span className="text-[11px] text-[#40455e]">{message.length} / 1000</span>
+                        <span className="text-[11px] text-slate-400">{message.length} / 1000</span>
                       </div>
                     </div>
 
@@ -489,9 +494,9 @@ export default function ContactPage() {
                       )}
                     </Button>
 
-                    <p className="text-center text-xs text-[#40455e]">
+                    <p className="text-center text-xs text-slate-400">
                       By submitting you agree to our{' '}
-                      <Link href="#" className="text-[#8e92ad] underline underline-offset-2 hover:text-white">Privacy Policy</Link>.
+                      <Link href="#" className="text-slate-500 underline underline-offset-2 hover:text-slate-900">Privacy Policy</Link>.
                       We never share your data.
                     </p>
                   </form>
@@ -503,8 +508,8 @@ export default function ContactPage() {
             <div className="lg:col-span-2 flex flex-col gap-6">
 
               {/* Channels */}
-              <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
-                <h3 className="mb-5 text-base font-bold text-white">Other ways to reach us</h3>
+              <div className="rounded-2xl border border-gray-200 bg-white p-6">
+                <h3 className="mb-5 text-base font-bold text-slate-900">Other ways to reach us</h3>
                 <div className="space-y-4">
                   {CONTACT_CHANNELS.map(({ Icon, label, value, note, color, bg }) => (
                     <div key={label} className="flex items-start gap-3.5">
@@ -512,9 +517,9 @@ export default function ContactPage() {
                         <Icon size={18} style={{ color }} />
                       </div>
                       <div className="min-w-0">
-                        <p className="text-[11px] font-bold uppercase tracking-widest text-[#8e92ad]">{label}</p>
-                        <p className="text-sm font-semibold text-white truncate">{value}</p>
-                        <p className="text-xs text-[#8e92ad]">{note}</p>
+                        <p className="text-[11px] font-bold uppercase tracking-widest text-slate-500">{label}</p>
+                        <p className="text-sm font-semibold text-slate-900 truncate">{value}</p>
+                        <p className="text-xs text-slate-500">{note}</p>
                       </div>
                     </div>
                   ))}
@@ -522,8 +527,8 @@ export default function ContactPage() {
               </div>
 
               {/* Office hours */}
-              <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
-                <h3 className="mb-4 text-base font-bold text-white flex items-center gap-2">
+              <div className="rounded-2xl border border-gray-200 bg-white p-6">
+                <h3 className="mb-4 text-base font-bold text-slate-900 flex items-center gap-2">
                   <Clock size={16} className="text-[#2b5ce6]" /> Office Hours
                 </h3>
                 <div className="space-y-2.5">
@@ -533,8 +538,8 @@ export default function ContactPage() {
                     { day: 'Sunday',          time: 'Closed',                 open: false },
                   ].map(({ day, time, open }) => (
                     <div key={day} className="flex items-center justify-between">
-                      <span className="text-sm text-[#8e92ad]">{day}</span>
-                      <span className={`text-xs font-semibold ${open ? 'text-white' : 'text-[#40455e]'}`}>{time}</span>
+                      <span className="text-sm text-slate-500">{day}</span>
+                      <span className={`text-xs font-semibold ${open ? 'text-slate-900' : 'text-slate-400'}`}>{time}</span>
                     </div>
                   ))}
                 </div>
@@ -544,18 +549,18 @@ export default function ContactPage() {
               </div>
 
               {/* Social media */}
-              <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6">
-                <h3 className="mb-4 text-base font-bold text-white">Follow us</h3>
+              <div className="rounded-2xl border border-gray-200 bg-white p-6">
+                <h3 className="mb-4 text-base font-bold text-slate-900">Follow us</h3>
                 <div className="space-y-3">
                   {SOCIALS.map(({ Icon, label, href, handle }) => (
                     <Link key={label} href={href}
-                      className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 transition-all hover:border-white/15 hover:bg-white/[0.05] group">
-                      <Icon size={17} className="text-[#8e92ad] group-hover:text-white transition-colors" />
+                      className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 transition-all hover:border-gray-300 hover:bg-gray-50 group">
+                      <Icon size={17} className="text-slate-500 group-hover:text-slate-900 transition-colors" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-white">{label}</p>
-                        <p className="text-[11px] text-[#8e92ad]">{handle}</p>
+                        <p className="text-xs font-semibold text-slate-900">{label}</p>
+                        <p className="text-[11px] text-slate-500">{handle}</p>
                       </div>
-                      <ChevronRight size={13} className="text-[#40455e] group-hover:text-[#8e92ad] transition-colors" />
+                      <ChevronRight size={13} className="text-slate-400 group-hover:text-slate-500 transition-colors" />
                     </Link>
                   ))}
                 </div>
@@ -567,11 +572,11 @@ export default function ContactPage() {
       </section>
 
       {/* ── Quick-action cards ──────────────────────────────────── */}
-      <section className="px-5 py-14 bg-[#0b0f1c]">
+      <section className="px-5 py-14 bg-gray-50">
         <div className="mx-auto max-w-7xl lg:px-8">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#2b5ce6]">Quick actions</p>
-            <h2 className="font-lora text-2xl font-normal text-white sm:text-3xl">Not sure where to start?</h2>
+            <h2 className="font-lora text-2xl font-normal text-slate-900 sm:text-3xl">Not sure where to start?</h2>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
@@ -583,13 +588,13 @@ export default function ContactPage() {
               <button
                 key={title}
                 onClick={() => { onClick(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                className="group text-left rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition-all duration-300 hover:border-white/10 hover:bg-white/[0.05] hover:-translate-y-0.5"
+                className="group text-left rounded-2xl border border-gray-100 bg-white p-6 transition-all duration-300 hover:border-gray-200 hover:bg-gray-50 hover:-translate-y-0.5"
               >
                 <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: bg }}>
                   <Icon size={20} style={{ color }} />
                 </div>
-                <h3 className="mb-1.5 text-sm font-bold text-white">{title}</h3>
-                <p className="text-xs leading-relaxed text-[#8e92ad]">{desc}</p>
+                <h3 className="mb-1.5 text-sm font-bold text-slate-900">{title}</h3>
+                <p className="text-xs leading-relaxed text-slate-500">{desc}</p>
                 <div className="mt-4 flex items-center gap-1 text-xs font-semibold" style={{ color }}>
                   Get in touch <ArrowRight size={11} className="transition-transform group-hover:translate-x-0.5" />
                 </div>
@@ -604,8 +609,8 @@ export default function ContactPage() {
         <div className="mx-auto max-w-4xl lg:px-8">
           <div className="mb-12 text-center">
             <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#2b5ce6]">FAQ</p>
-            <h2 className="font-lora text-3xl font-normal text-white sm:text-4xl">Frequently asked questions</h2>
-            <p className="mt-4 text-[#8e92ad]">Can't find what you're looking for? <Link href="#" className="text-[#7b9ef0] underline underline-offset-2 hover:text-white">Search our help centre →</Link></p>
+            <h2 className="font-lora text-3xl font-normal text-slate-900 sm:text-4xl">Frequently asked questions</h2>
+            <p className="mt-4 text-slate-500">Can't find what you're looking for? <Link href="#" className="text-blue-600 dark:text-blue-300 underline underline-offset-2 hover:text-slate-900">Search our help centre →</Link></p>
           </div>
 
           {/* Category tabs */}
@@ -616,8 +621,8 @@ export default function ContactPage() {
                 onClick={() => { setActiveCategory(id); setOpenFaq(null); }}
                 className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${
                   activeCategory === id
-                    ? 'border-current bg-white/[0.06] text-white'
-                    : 'border-white/[0.08] text-[#8e92ad] hover:border-white/15 hover:text-white'
+                    ? 'border-current bg-gray-50 text-slate-900'
+                    : 'border-gray-200 text-slate-500 hover:border-gray-300 hover:text-slate-900'
                 }`}
                 style={activeCategory === id ? { borderColor: color, color } : {}}
               >
@@ -636,24 +641,24 @@ export default function ContactPage() {
                 <div
                   key={key}
                   className={`rounded-2xl border transition-all duration-200 ${
-                    isOpen ? 'border-white/10 bg-white/[0.04]' : 'border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.03]'
+                    isOpen ? 'border-gray-200 bg-white' : 'border-gray-100 bg-white hover:bg-white'
                   }`}
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : key)}
                     className="w-full flex items-center justify-between gap-4 px-6 py-4 text-left"
                   >
-                    <span className={`text-sm font-semibold leading-snug transition-colors ${isOpen ? 'text-white' : 'text-[#c8ccdf]'}`}>
+                    <span className={`text-sm font-semibold leading-snug transition-colors ${isOpen ? 'text-slate-900' : 'text-slate-700'}`}>
                       {item.q}
                     </span>
                     <ChevronDown
                       size={16}
-                      className={`shrink-0 text-[#8e92ad] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                      className={`shrink-0 text-slate-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
                     />
                   </button>
                   {isOpen && (
                     <div className="px-6 pb-5">
-                      <p className="text-sm leading-relaxed text-[#8e92ad]">{item.a}</p>
+                      <p className="text-sm leading-relaxed text-slate-500">{item.a}</p>
                     </div>
                   )}
                 </div>
@@ -663,8 +668,8 @@ export default function ContactPage() {
 
           {/* Still need help */}
           <div className="mt-12 rounded-2xl border border-[#2b5ce6]/20 bg-[#2b5ce6]/[0.06] p-8 text-center">
-            <p className="text-base font-semibold text-white">Still have questions?</p>
-            <p className="mt-2 text-sm text-[#8e92ad]">Our support team is happy to walk you through anything — no question is too small.</p>
+            <p className="text-base font-semibold text-slate-900">Still have questions?</p>
+            <p className="mt-2 text-sm text-slate-500">Our support team is happy to walk you through anything — no question is too small.</p>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#2b5ce6] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#254ec3] transition-colors shadow-lg shadow-[#2b5ce6]/20"
@@ -676,14 +681,14 @@ export default function ContactPage() {
       </section>
 
       {/* ── Footer ──────────────────────────────────────────────── */}
-      <footer className="border-t border-white/[0.06] bg-[#070b14] px-5 py-10">
+      <footer className="border-t border-gray-200 bg-[#F8F9FB] px-5 py-10">
         <div className="mx-auto max-w-7xl lg:px-8">
           <div className="flex flex-col items-center gap-5 sm:flex-row sm:justify-between">
-            <Link href="/" className="font-lora text-lg font-normal text-white tracking-tight">AdmitIQ</Link>
-            <p className="text-xs text-[#40455e]">© 2026 AdmitIQ. Built for Canadian students.</p>
+            <Link href="/" className="font-lora text-lg font-normal text-slate-900 tracking-tight">AdmitIQ</Link>
+            <p className="text-xs text-slate-400">© 2026 AdmitIQ. Built for Canadian students.</p>
             <div className="flex items-center gap-5">
               {['Privacy', 'Terms', 'Contact'].map(item => (
-                <Link key={item} href="#" className="text-xs text-[#40455e] transition-colors hover:text-[#8e92ad]">{item}</Link>
+                <Link key={item} href="#" className="text-xs text-slate-400 transition-colors hover:text-slate-500">{item}</Link>
               ))}
             </div>
           </div>

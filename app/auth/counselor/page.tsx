@@ -14,6 +14,8 @@ import {
   Users,
 } from 'lucide-react';
 import { useAuth } from '@/src/hooks/useAuth';
+import { useTheme } from '@/src/hooks/useTheme';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 const features = [
   {
@@ -45,6 +47,8 @@ export default function CounselorLoginPage() {
   const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const { login, loading, error } = useAuth();
+  const theme = useTheme((s) => s.theme);
+  const isDark = theme === 'dark';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +56,7 @@ export default function CounselorLoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#070b14] text-white antialiased">
+    <div className="flex min-h-screen bg-[#F8F9FB] text-slate-900 antialiased">
 
       {/* ── Background glow ─────────────────────────────────── */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -61,20 +65,23 @@ export default function CounselorLoginPage() {
       </div>
 
       {/* ── Left panel ──────────────────────────────────────── */}
-      <div className="relative hidden w-[42%] flex-col justify-between overflow-hidden border-r border-white/[0.06] bg-[#080c18] p-12 xl:p-16 lg:flex">
+      <div className="relative hidden w-[42%] flex-col justify-between overflow-hidden border-r border-gray-200 bg-white p-12 xl:p-16 lg:flex">
 
         {/* Top: logo + back */}
         <div className="relative z-10 flex items-center justify-between">
-          <Link href="/" className="font-lora text-xl font-normal tracking-tight text-white">
+          <Link href="/" className="font-lora text-xl font-normal tracking-tight text-slate-900">
             AdmitIQ
           </Link>
-          <Link
-            href="/auth"
-            className="flex items-center gap-1.5 text-xs text-[#8e92ad] transition-colors hover:text-white"
-          >
-            <ArrowLeft size={13} />
-            All roles
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/auth"
+              className="flex items-center gap-1.5 text-xs text-slate-500 transition-colors hover:text-slate-900"
+            >
+              <ArrowLeft size={13} />
+              All roles
+            </Link>
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Middle: headline + features */}
@@ -87,12 +94,12 @@ export default function CounselorLoginPage() {
               <Users size={12} />
               Counselor Console
             </div>
-            <h1 className="font-lora text-4xl font-normal leading-[1.1] text-white xl:text-5xl">
+            <h1 className="font-lora text-4xl font-normal leading-[1.1] text-slate-900 xl:text-5xl">
               Your cohort.
               <br />
               Your command.
             </h1>
-            <p className="mt-4 text-sm leading-relaxed text-[#8e92ad]">
+            <p className="mt-4 text-sm leading-relaxed text-slate-500">
               Monitor applications and flag students who need support — all in one place.
             </p>
           </div>
@@ -102,8 +109,8 @@ export default function CounselorLoginPage() {
               <li key={f.title} className="flex items-start gap-3.5">
                 <CheckCircle2 size={16} className="mt-0.5 shrink-0" style={{ color: ACCENT }} />
                 <div>
-                  <p className="text-sm font-semibold text-white">{f.title}</p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-[#8e92ad]">{f.desc}</p>
+                  <p className="text-sm font-semibold text-slate-900">{f.title}</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-slate-500">{f.desc}</p>
                 </div>
               </li>
             ))}
@@ -111,8 +118,8 @@ export default function CounselorLoginPage() {
         </div>
 
         {/* Bottom: testimonial */}
-        <div className="relative z-10 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5">
-          <p className="text-sm italic leading-relaxed text-[#c8ccdf]">
+        <div className="relative z-10 rounded-2xl border border-gray-100 bg-gray-50 p-5">
+          <p className="text-sm italic leading-relaxed text-slate-700">
             "The risk dashboard saves me hours every week. I can see which students
             need attention before they miss a deadline."
           </p>
@@ -124,8 +131,8 @@ export default function CounselorLoginPage() {
               SK
             </div>
             <div>
-              <p className="text-xs font-semibold text-white">Sarah K.</p>
-              <p className="text-[10px] text-[#8e92ad]">Lead Counselor · Westview Secondary, ON</p>
+              <p className="text-xs font-semibold text-slate-900">Sarah K.</p>
+              <p className="text-[10px] text-slate-500">Lead Counselor · Westview Secondary, ON</p>
             </div>
           </div>
         </div>
@@ -135,18 +142,18 @@ export default function CounselorLoginPage() {
       <div className="flex flex-1 flex-col">
 
         {/* Mobile-only header */}
-        <header className="flex items-center justify-between border-b border-white/[0.06] px-5 py-4 lg:hidden">
+        <header className="flex items-center justify-between border-b border-gray-200 px-5 py-4 lg:hidden">
           <Link
             href="/auth"
-            className="flex items-center gap-1.5 text-sm text-[#8e92ad] hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 transition-colors"
           >
             <ArrowLeft size={15} />
             Back
           </Link>
-          <Link href="/" className="font-lora text-lg font-normal text-white">
+          <Link href="/" className="font-lora text-lg font-normal text-slate-900">
             AdmitIQ
           </Link>
-          <div className="w-12" />
+          <ThemeToggle />
         </header>
 
         {/* Form area */}
@@ -156,7 +163,7 @@ export default function CounselorLoginPage() {
             {/* Heading */}
             <div className="space-y-1.5">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                   AdmitIQ
                 </span>
                 <span
@@ -166,8 +173,8 @@ export default function CounselorLoginPage() {
                   ✦ Counselor
                 </span>
               </div>
-              <h2 className="font-lora text-3xl font-normal text-white">Counselor sign in</h2>
-              <p className="text-sm text-[#8e92ad]">Access your school cohort and management tools</p>
+              <h2 className="font-lora text-3xl font-normal text-slate-900">Counselor sign in</h2>
+              <p className="text-sm text-slate-500">Access your school cohort and management tools</p>
             </div>
 
             {/* Error banner */}
@@ -182,7 +189,7 @@ export default function CounselorLoginPage() {
 
               {/* Email */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                   School email address
                 </label>
                 <input
@@ -200,7 +207,7 @@ export default function CounselorLoginPage() {
               {/* Password */}
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                     Password
                   </label>
                   <Link
@@ -224,7 +231,7 @@ export default function CounselorLoginPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
-                    className="absolute inset-y-0 right-3 flex items-center text-[#8e92ad] transition-colors hover:text-white"
+                    className="absolute inset-y-0 right-3 flex items-center text-slate-500 transition-colors hover:text-slate-900"
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -239,7 +246,7 @@ export default function CounselorLoginPage() {
                   className="flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors"
                   style={{
                     background: rememberMe ? ACCENT : 'transparent',
-                    borderColor: rememberMe ? ACCENT : 'rgba(255,255,255,0.2)',
+                    borderColor: rememberMe ? ACCENT : isDark ? 'rgba(255,255,255,0.2)' : 'rgba(15,17,23,0.2)',
                   }}
                 >
                   {rememberMe && (
@@ -248,7 +255,7 @@ export default function CounselorLoginPage() {
                     </svg>
                   )}
                 </div>
-                <span className="text-xs text-[#8e92ad]">Keep me signed in on this device</span>
+                <span className="text-xs text-slate-500">Keep me signed in on this device</span>
               </label>
 
               {/* Submit */}
@@ -271,11 +278,11 @@ export default function CounselorLoginPage() {
 
             {/* Divider */}
             <div className="flex items-center gap-4">
-              <div className="h-px flex-1 bg-white/[0.07]" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#40455e]">
+              <div className="h-px flex-1 bg-gray-200" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
                 or continue with
               </span>
-              <div className="h-px flex-1 bg-white/[0.07]" />
+              <div className="h-px flex-1 bg-gray-200" />
             </div>
 
             {/* Google Workspace */}
@@ -283,7 +290,7 @@ export default function CounselorLoginPage() {
               type="button"
               className="auth-social-btn w-full gap-2.5"
             >
-              <Chrome size={15} className="text-[#8e92ad]" />
+              <Chrome size={15} className="text-slate-500" />
               <span>Sign in with Google Workspace</span>
             </button>
 
@@ -309,19 +316,19 @@ export default function CounselorLoginPage() {
                 <ShieldCheck size={15} style={{ color: ACCENT }} />
               </div>
               <div>
-                <p className="text-xs font-semibold text-white">Sign in with School SSO</p>
-                <p className="mt-0.5 text-[10px] leading-tight text-[#8e92ad]">
+                <p className="text-xs font-semibold text-slate-900">Sign in with School SSO</p>
+                <p className="mt-0.5 text-[10px] leading-tight text-slate-500">
                   Microsoft, Okta, or Google Workspace
                 </p>
               </div>
             </button>
 
             {/* Footer */}
-            <p className="text-center text-sm text-[#8e92ad]">
+            <p className="text-center text-sm text-slate-500">
               New to AdmitIQ?{' '}
               <Link
                 href="/auth/counselor/signup"
-                className="font-semibold transition-colors hover:text-white"
+                className="font-semibold transition-colors hover:text-slate-900"
                 style={{ color: ACCENT }}
               >
                 Request access with your institution code →

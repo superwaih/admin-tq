@@ -14,6 +14,8 @@ import {
   GraduationCap,
 } from 'lucide-react';
 import { useAuth } from '@/src/hooks/useAuth';
+import { useTheme } from '@/src/hooks/useTheme';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 const features = [
   {
@@ -43,6 +45,8 @@ export default function StudentLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const { login, socialAuth, loading, error } = useAuth();
+  const theme = useTheme((s) => s.theme);
+  const isDark = theme === 'dark';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,10 +54,10 @@ export default function StudentLoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#070b14] text-white antialiased">
+    <div className="flex min-h-screen bg-[#F8F9FB] text-slate-900 antialiased">
 
       {/* ── Left panel ──────────────────────────────────────────── */}
-      <div className="relative hidden w-[42%] flex-col justify-between overflow-hidden border-r border-white/[0.06] bg-[#080c18] p-12 xl:p-16 lg:flex">
+      <div className="relative hidden w-[42%] flex-col justify-between overflow-hidden border-r border-gray-200 bg-white p-12 xl:p-16 lg:flex">
 
         {/* Background glow */}
         <div className="pointer-events-none absolute -bottom-32 -left-32 h-[500px] w-[500px] rounded-full bg-[#2b5ce6]/10 blur-[120px]" />
@@ -61,16 +65,19 @@ export default function StudentLoginPage() {
 
         {/* Top: logo + back */}
         <div className="relative z-10 flex items-center justify-between">
-          <Link href="/" className="font-lora text-xl font-normal tracking-tight text-white">
+          <Link href="/" className="font-lora text-xl font-normal tracking-tight text-slate-900">
             AdmitIQ
           </Link>
-          <Link
-            href="/auth"
-            className="flex items-center gap-1.5 text-xs text-[#8e92ad] transition-colors hover:text-white"
-          >
-            <ArrowLeft size={13} />
-            All roles
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/auth"
+              className="flex items-center gap-1.5 text-xs text-slate-500 transition-colors hover:text-slate-900"
+            >
+              <ArrowLeft size={13} />
+              All roles
+            </Link>
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Middle: headline + features */}
@@ -83,12 +90,12 @@ export default function StudentLoginPage() {
               <GraduationCap size={12} />
               Student Portal
             </div>
-            <h1 className="font-lora text-4xl font-normal leading-[1.1] text-white xl:text-5xl">
+            <h1 className="font-lora text-4xl font-normal leading-[1.1] text-slate-900 xl:text-5xl">
               Your admissions
               <br />
               co-pilot awaits.
             </h1>
-            <p className="mt-4 text-sm leading-relaxed text-[#8e92ad]">
+            <p className="mt-4 text-sm leading-relaxed text-slate-500">
               Sign in to track your odds and continue your AIF draft.
             </p>
           </div>
@@ -98,8 +105,8 @@ export default function StudentLoginPage() {
               <li key={f.title} className="flex items-start gap-3.5">
                 <CheckCircle2 size={16} className="mt-0.5 shrink-0" style={{ color: ACCENT }} />
                 <div>
-                  <p className="text-sm font-semibold text-white">{f.title}</p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-[#8e92ad]">{f.desc}</p>
+                  <p className="text-sm font-semibold text-slate-900">{f.title}</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-slate-500">{f.desc}</p>
                 </div>
               </li>
             ))}
@@ -107,8 +114,8 @@ export default function StudentLoginPage() {
         </div>
 
         {/* Bottom: testimonial */}
-        <div className="relative z-10 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5">
-          <p className="text-sm italic leading-relaxed text-[#c8ccdf]">
+        <div className="relative z-10 rounded-2xl border border-gray-100 bg-gray-50 p-5">
+          <p className="text-sm italic leading-relaxed text-slate-700">
             "AdmitIQ told me my Waterloo odds were 61% before I applied — I got in.
             The AIF coach alone was worth it."
           </p>
@@ -120,8 +127,8 @@ export default function StudentLoginPage() {
               PM
             </div>
             <div>
-              <p className="text-xs font-semibold text-white">Priya M.</p>
-              <p className="text-[10px] text-[#8e92ad]">Waterloo Software Eng · Class of 2028</p>
+              <p className="text-xs font-semibold text-slate-900">Priya M.</p>
+              <p className="text-[10px] text-slate-500">Waterloo Software Eng · Class of 2028</p>
             </div>
           </div>
         </div>
@@ -131,18 +138,18 @@ export default function StudentLoginPage() {
       <div className="flex flex-1 flex-col">
 
         {/* Mobile-only header */}
-        <header className="flex items-center justify-between border-b border-white/[0.06] px-5 py-4 lg:hidden">
+        <header className="flex items-center justify-between border-b border-gray-200 px-5 py-4 lg:hidden">
           <Link
             href="/auth"
-            className="flex items-center gap-1.5 text-sm text-[#8e92ad] hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 transition-colors"
           >
             <ArrowLeft size={15} />
             Back
           </Link>
-          <Link href="/" className="font-lora text-lg font-normal text-white">
+          <Link href="/" className="font-lora text-lg font-normal text-slate-900">
             AdmitIQ
           </Link>
-          <div className="w-12" />
+          <ThemeToggle />
         </header>
 
         {/* Form area */}
@@ -152,7 +159,7 @@ export default function StudentLoginPage() {
             {/* Heading */}
             <div className="space-y-1.5">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                   AdmitIQ
                 </span>
                 <span
@@ -162,8 +169,8 @@ export default function StudentLoginPage() {
                   ✦ Student
                 </span>
               </div>
-              <h2 className="font-lora text-3xl font-normal text-white">Welcome back</h2>
-              <p className="text-sm text-[#8e92ad]">Sign in to your student account</p>
+              <h2 className="font-lora text-3xl font-normal text-slate-900">Welcome back</h2>
+              <p className="text-sm text-slate-500">Sign in to your student account</p>
             </div>
 
             {/* Error banner */}
@@ -178,7 +185,7 @@ export default function StudentLoginPage() {
 
               {/* Email */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                   Email address
                 </label>
                 <input
@@ -195,7 +202,7 @@ export default function StudentLoginPage() {
               {/* Password */}
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                     Password
                   </label>
                   <Link
@@ -219,7 +226,7 @@ export default function StudentLoginPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
-                    className="absolute inset-y-0 right-3 flex items-center text-[#8e92ad] transition-colors hover:text-white"
+                    className="absolute inset-y-0 right-3 flex items-center text-slate-500 transition-colors hover:text-slate-900"
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -234,7 +241,7 @@ export default function StudentLoginPage() {
                   className="flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors"
                   style={{
                     background: rememberMe ? ACCENT : 'transparent',
-                    borderColor: rememberMe ? ACCENT : 'rgba(255,255,255,0.2)',
+                    borderColor: rememberMe ? ACCENT : isDark ? 'rgba(255,255,255,0.2)' : 'rgba(15,17,23,0.2)',
                   }}
                 >
                   {rememberMe && (
@@ -243,7 +250,7 @@ export default function StudentLoginPage() {
                     </svg>
                   )}
                 </div>
-                <span className="text-xs text-[#8e92ad]">Remember me for 30 days</span>
+                <span className="text-xs text-slate-500">Remember me for 30 days</span>
               </label>
 
               {/* Submit */}
@@ -266,11 +273,11 @@ export default function StudentLoginPage() {
 
             {/* Divider */}
             <div className="flex items-center gap-4">
-              <div className="h-px flex-1 bg-white/[0.07]" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#40455e]">
+              <div className="h-px flex-1 bg-gray-200" />
+              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
                 or continue with
               </span>
-              <div className="h-px flex-1 bg-white/[0.07]" />
+              <div className="h-px flex-1 bg-gray-200" />
             </div>
 
             {/* Social buttons */}
@@ -280,7 +287,7 @@ export default function StudentLoginPage() {
                 onClick={() => socialAuth('google')}
                 className="auth-social-btn"
               >
-                <Chrome size={15} className="text-[#8e92ad]" />
+                <Chrome size={15} className="text-slate-500" />
                 <span>Google</span>
               </button>
               <button
@@ -288,7 +295,7 @@ export default function StudentLoginPage() {
                 onClick={() => socialAuth('apple')}
                 className="auth-social-btn"
               >
-                <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 text-[#8e92ad]">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 text-slate-500">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                 </svg>
                 <span>Apple</span>
@@ -305,19 +312,19 @@ export default function StudentLoginPage() {
                 <LinkIcon size={15} style={{ color: ACCENT }} />
               </div>
               <div>
-                <p className="text-xs font-semibold text-white">Sign in with OUAC</p>
-                <p className="mt-0.5 text-[10px] leading-tight text-[#8e92ad]">
+                <p className="text-xs font-semibold text-slate-900">Sign in with OUAC</p>
+                <p className="mt-0.5 text-[10px] leading-tight text-slate-500">
                   Ontario Universities Application Centre — auto-imports your grades
                 </p>
               </div>
             </button>
 
             {/* Footer */}
-            <p className="text-center text-sm text-[#8e92ad]">
+            <p className="text-center text-sm text-slate-500">
               Don&apos;t have an account?{' '}
               <Link
                 href="/auth/student/register"
-                className="font-semibold transition-colors hover:text-white"
+                className="font-semibold transition-colors hover:text-slate-900"
                 style={{ color: ACCENT }}
               >
                 Create free account →

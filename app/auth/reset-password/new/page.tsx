@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Lock, Eye, EyeOff, CheckCircle2, Loader2, ShieldCheck } from 'lucide-react';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 const ACCENT = '#2b5ce6';
 const ACCENT_ALPHA = 'rgba(43,92,230,0.14)';
@@ -53,7 +54,8 @@ export default function NewPasswordPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-[#070b14] px-5 py-12 antialiased">
+    <div className="relative flex min-h-screen items-center justify-center bg-[#F8F9FB] px-5 py-12 antialiased">
+      <ThemeToggle floating />
 
       {/* Background glow */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -65,14 +67,14 @@ export default function NewPasswordPage() {
         {/* Back link */}
         <Link
           href="/auth/reset-password"
-          className="mb-8 flex items-center gap-1.5 text-sm text-[#8e92ad] transition-colors hover:text-white"
+          className="mb-8 flex items-center gap-1.5 text-sm text-slate-500 transition-colors hover:text-slate-900"
         >
           <ArrowLeft size={15} />
           Back
         </Link>
 
         {/* Card */}
-        <div className="rounded-3xl border border-white/[0.07] bg-[#0d1020] p-8 sm:p-10">
+        <div className="rounded-3xl border border-gray-100 bg-white p-8 sm:p-10">
 
           {done ? (
             /* ── Success state ─────────────────────────────────── */
@@ -81,8 +83,8 @@ export default function NewPasswordPage() {
                 <ShieldCheck size={30} className="text-emerald-400" />
               </div>
               <div className="space-y-2">
-                <h2 className="font-lora text-2xl font-normal text-white">Password updated</h2>
-                <p className="text-sm leading-relaxed text-[#8e92ad]">
+                <h2 className="font-lora text-2xl font-normal text-slate-900">Password updated</h2>
+                <p className="text-sm leading-relaxed text-slate-500">
                   Your password has been changed successfully. You can now sign in with your new credentials.
                 </p>
               </div>
@@ -109,11 +111,11 @@ export default function NewPasswordPage() {
 
               {/* Heading */}
               <div className="space-y-1.5">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                   AdmitIQ
                 </span>
-                <h2 className="font-lora text-3xl font-normal text-white">Create new password</h2>
-                <p className="text-sm text-[#8e92ad]">
+                <h2 className="font-lora text-3xl font-normal text-slate-900">Create new password</h2>
+                <p className="text-sm text-slate-500">
                   Choose a strong password you haven't used before.
                 </p>
               </div>
@@ -122,7 +124,7 @@ export default function NewPasswordPage() {
 
                 {/* New password */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                     New password
                   </label>
                   <div className="relative">
@@ -138,7 +140,7 @@ export default function NewPasswordPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
-                      className="absolute inset-y-0 right-3 flex items-center text-[#8e92ad] transition-colors hover:text-white"
+                      className="absolute inset-y-0 right-3 flex items-center text-slate-500 transition-colors hover:text-slate-900"
                     >
                       {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
@@ -151,10 +153,8 @@ export default function NewPasswordPage() {
                         {[1, 2, 3, 4, 5].map((i) => (
                           <div
                             key={i}
-                            className="h-1 flex-1 rounded-full transition-all duration-300"
-                            style={{
-                              background: i <= strength.score ? strength.color : 'rgba(255,255,255,0.08)',
-                            }}
+                            className={`h-1 flex-1 rounded-full transition-all duration-300 ${i <= strength.score ? '' : 'bg-gray-200'}`}
+                            style={i <= strength.score ? { background: strength.color } : undefined}
                           />
                         ))}
                       </div>
@@ -167,7 +167,7 @@ export default function NewPasswordPage() {
 
                 {/* Confirm password */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                     Confirm password
                   </label>
                   <div className="relative">
@@ -190,7 +190,7 @@ export default function NewPasswordPage() {
                     <button
                       type="button"
                       onClick={() => setShowConfirm((v) => !v)}
-                      className="absolute inset-y-0 right-3 flex items-center text-[#8e92ad] transition-colors hover:text-white"
+                      className="absolute inset-y-0 right-3 flex items-center text-slate-500 transition-colors hover:text-slate-900"
                     >
                       {showConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
                     </button>
@@ -202,19 +202,17 @@ export default function NewPasswordPage() {
 
                 {/* Requirements checklist */}
                 {password.length > 0 && (
-                  <ul className="space-y-2 rounded-xl border border-white/[0.06] bg-white/[0.03] p-4">
+                  <ul className="space-y-2 rounded-xl border border-gray-200 bg-white p-4">
                     {REQUIREMENTS.map((req) => {
                       const met = req.test(password);
                       return (
                         <li key={req.label} className="flex items-center gap-2.5">
                           <CheckCircle2
                             size={13}
-                            className="shrink-0 transition-colors"
-                            style={{ color: met ? '#10b981' : '#40455e' }}
+                            className={`shrink-0 transition-colors ${met ? 'text-emerald-500' : 'text-slate-400'}`}
                           />
                           <span
-                            className="text-xs transition-colors"
-                            style={{ color: met ? '#c8ccdf' : '#8e92ad' }}
+                            className={`text-xs transition-colors ${met ? 'text-slate-700' : 'text-slate-500'}`}
                           >
                             {req.label}
                           </span>

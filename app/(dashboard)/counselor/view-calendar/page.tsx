@@ -33,22 +33,30 @@ const TYPE_COLORS: Record<string, { bg: string; border: string; dot: string; tex
 const AVATAR_COLORS: Record<string, string> = {
   'LK': 'bg-indigo-500', 'AT': 'bg-violet-500', 'JL': 'bg-slate-500',
   'OE': 'bg-amber-500',  'PM': 'bg-indigo-600', 'SM': 'bg-pink-500',
+  'AY': 'bg-yellow-400', 'DM': 'bg-blue-500',   'FB': 'bg-pink-500',
+  'IA': 'bg-green-500',  'MO': 'bg-orange-400',
 };
 
 // ── Calendar data ─────────────────────────────────────────────────────────────
 const SESSIONS: Session[] = [
-  { id: 1, initials: 'LK', name: 'Liam Kay',   type: 'Mock Interview', startHour: 9,    endHour: 10,  dayIndex: 3, venue: 'Zoom' },
-  { id: 2, initials: 'AT', name: 'Ave Tyler',   type: 'Consultation',   startHour: 10,   endHour: 10.5, dayIndex: 1, venue: 'McGill University' },
-  { id: 3, initials: 'AT', name: 'Ave Tyler',   type: 'Essay Review',   startHour: 13.5, endHour: 14.5, dayIndex: 3, venue: 'McGill University' },
-  { id: 4, initials: 'LK', name: 'Liam Kay',   type: 'Consultation',   startHour: 9.08, endHour: 10,  dayIndex: 0, venue: 'Teams' },
-  { id: 5, initials: 'OE', name: 'Oliva Ema',  type: 'Essay Review',   startHour: 10,   endHour: 11,  dayIndex: 5, venue: 'Zoom' },
-  { id: 6, initials: 'JL', name: 'James Lee',  type: 'Other',          startHour: 10,   endHour: 11,  dayIndex: 6, venue: 'Campus' },
-  { id: 7, initials: 'AT', name: 'Ave Tyler',   type: 'Consultation',   startHour: 18,   endHour: 19,  dayIndex: 3, venue: 'Zoom' },
-  { id: 8, initials: 'LK', name: 'Liam Kay',   type: 'Consultation',   startHour: 6,    endHour: 7,   dayIndex: 5, venue: 'Teams' },
+  { id: 1,  initials: 'LK', name: 'Liam Kay',      type: 'Mock Interview', startHour: 9,    endHour: 10,   dayIndex: 3, venue: 'Zoom' },
+  { id: 2,  initials: 'AT', name: 'Ave Tyler',      type: 'Consultation',   startHour: 10,   endHour: 10.5, dayIndex: 1, venue: 'McGill University' },
+  { id: 3,  initials: 'AT', name: 'Ave Tyler',      type: 'Essay Review',   startHour: 13.5, endHour: 14.5, dayIndex: 3, venue: 'McGill University' },
+  { id: 4,  initials: 'LK', name: 'Liam Kay',      type: 'Consultation',   startHour: 9.08, endHour: 10,   dayIndex: 0, venue: 'Teams' },
+  { id: 5,  initials: 'OE', name: 'Oliva Ema',     type: 'Essay Review',   startHour: 10,   endHour: 11,   dayIndex: 5, venue: 'Zoom' },
+  { id: 6,  initials: 'JL', name: 'James Lee',     type: 'Other',          startHour: 10,   endHour: 11,   dayIndex: 6, venue: 'Campus' },
+  { id: 7,  initials: 'AT', name: 'Ave Tyler',      type: 'Consultation',   startHour: 18,   endHour: 19,   dayIndex: 3, venue: 'Zoom' },
+  { id: 8,  initials: 'LK', name: 'Liam Kay',      type: 'Consultation',   startHour: 6,    endHour: 7,    dayIndex: 5, venue: 'Teams' },
+  // ── MMI Practice sessions from MMI Coaching ──────────────────────────────
+  { id: 9,  initials: 'AY', name: 'Amina Yusuf',   type: 'MMI Prep',       startHour: 14,   endHour: 15,   dayIndex: 2, venue: 'Zoom' },
+  { id: 10, initials: 'DM', name: 'Daniel Musa',   type: 'MMI Prep',       startHour: 15.5, endHour: 16.5, dayIndex: 2, venue: 'Zoom' },
+  { id: 11, initials: 'FB', name: 'Fatima Bello',  type: 'MMI Prep',       startHour: 9,    endHour: 10,   dayIndex: 3, venue: 'Teams' },
+  { id: 12, initials: 'IA', name: 'Ibrahim Ali',   type: 'MMI Prep',       startHour: 11.5, endHour: 12.5, dayIndex: 3, venue: 'Teams' },
+  { id: 13, initials: 'MO', name: 'Maryam Okafor', type: 'MMI Prep',       startHour: 10,   endHour: 11,   dayIndex: 4, venue: 'Zoom' },
 ];
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const DAY_DATES = [12, 13, 14, 15, 16, 17, 18];
+const DAY_DATES = [21, 22, 23, 24, 25, 26, 27];
 const HOURS = Array.from({ length: 15 }, (_, i) => i + 6); // 6 AM – 8 PM
 const HOUR_HEIGHT = 60; // px per hour
 

@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link as LinkIcon, Edit3, ChevronRight } from "lucide-react";
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 export default function GradeChoicePage() {
   return (
     <div className="flex min-h-screen bg-white">
+      <ThemeToggle floating />
       <div className="hidden lg:flex w-[35%] bg-[#0B0E14] text-white p-16 flex-col justify-between">
         <div className="space-y-6">
           <div className="text-xl font-bold tracking-tight">AdmitIQ</div>

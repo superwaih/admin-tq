@@ -17,7 +17,17 @@ const PRIMARY_TABS = [
   { href: '/parent/schedule',    label: 'Schedule',  Icon: Calendar },
 ];
 
-const MORE_PAGES = [
+type MorePage = {
+  href: string;
+  label: string;
+  shortLabel: string;
+  Icon: typeof TrendingUp;
+  description: string;
+  color: string;
+  badge?: string;
+};
+
+const MORE_PAGES: MorePage[] = [
   {
     href: '/parent/academic-progress',
     label: 'Academic Progress',
@@ -185,7 +195,7 @@ export function ParentMobileNav() {
           <div className="w-10 h-1 bg-slate-200 dark:bg-white/15 rounded-full mx-auto mb-4" />
           <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 px-1">More options</p>
           <div className="grid grid-cols-2 gap-2.5">
-            {MORE_PAGES.map(({ href, label, Icon, description, color }) => {
+            {MORE_PAGES.map(({ href, label, Icon, description, color, badge }) => {
               const isActive = pathname.startsWith(href);
               return (
                 <Link
@@ -201,7 +211,12 @@ export function ParentMobileNav() {
                     <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center shadow-sm`}>
                       <Icon size={17} className="text-white" strokeWidth={2} />
                     </div>
-                    {isActive && (
+                    {badge && (
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-red-50 dark:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-500/30">
+                        {badge}
+                      </span>
+                    )}
+                    {isActive && !badge && (
                       <div className="w-2 h-2 rounded-full bg-violet-500 animate-pulse mt-1" />
                     )}
                   </div>

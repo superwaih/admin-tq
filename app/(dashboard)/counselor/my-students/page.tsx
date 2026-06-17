@@ -475,7 +475,7 @@ export default function MyStudentsPage() {
                   { label: 'Message All Students', icon: <MessageSquare size={14} />, color: 'text-blue-600',    bg: 'bg-blue-50 dark:bg-blue-500/15',    route: '/counselor/message-student' },
                   { label: 'Upload Materials',     icon: <Upload size={14} />,        color: 'text-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-500/15', route: '/counselor/upload-resources' },
                   { label: 'Schedule Session',     icon: <Calendar size={14} />,      color: 'text-purple-600',  bg: 'bg-purple-50 dark:bg-purple-500/15',  route: '/counselor/session-schedule' },
-                  { label: 'Export Reports',       icon: <BarChart2 size={14} />,     color: 'text-amber-600',   bg: 'bg-amber-50 dark:bg-amber-500/15',    route: null },
+                  { label: 'Export Reports',       icon: <BarChart2 size={14} />,     color: 'text-amber-600',   bg: 'bg-amber-50 dark:bg-amber-500/15',    route: '/counselor/export-reports' },
                 ].map(a => (
                   <button key={a.label} onClick={() => a.route && router.push(a.route)} className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-gray-100 dark:border-white/6 hover:bg-gray-50 dark:hover:bg-white/[0.03] transition-colors">
                     <div className="flex items-center gap-3">

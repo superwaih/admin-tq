@@ -7,6 +7,7 @@ import {
   ChevronRight, TrendingUp, ArrowUpRight,
   Star, Clock, MapPin, Flame,
 } from 'lucide-react';
+import SessionPaymentRequests from '@/src/components/parent/SessionPaymentRequests';
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 function greeting() {
@@ -138,6 +139,9 @@ export default function ParentPage() {
             label="Total Due" value="$120.00" sub="View Payments" subColor="text-amber-600 dark:text-amber-400" href="/parent/payment"
           />
         </div>
+
+        {/* ── Session payment requests (from children's bookings) ── */}
+        <SessionPaymentRequests />
 
         {/* ── Three-column main area ──────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_280px] gap-4 sm:gap-5 items-start">

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Star, MapPin, Globe, Video, MessageSquare, Phone, Bookmark,
   BookmarkCheck, ChevronDown, Award, GraduationCap, Zap,
@@ -557,18 +559,17 @@ function ProfileDialog({
             <p className="text-lg font-bold text-slate-900 dark:text-slate-100">${c.price}<span className="text-xs font-medium text-slate-400">/session</span></p>
             <AvailabilityBadge status={c.availability} nextSlot={c.nextSlot} />
           </div>
-          <Button
-            disabled={c.availability === 'booked'}
-            onClick={() => { onClose(); onBook(); }}
-            className={`h-10 px-5 rounded-xl text-sm font-bold gap-2 ${
-              c.availability === 'booked'
-                ? 'bg-slate-100 dark:bg-white/6 text-slate-400 cursor-not-allowed'
-                : 'bg-blue-600 hover:bg-blue-700 text-white'
-            }`}
-          >
-            <Calendar size={14} />
-            {c.availability === 'booked' ? 'Fully Booked' : 'Book a Session'}
-          </Button>
+          {c.availability === 'booked' ? (
+            <Button disabled className="h-10 px-5 rounded-xl text-sm font-bold gap-2 bg-slate-100 dark:bg-white/6 text-slate-400 cursor-not-allowed">
+              <Calendar size={14} /> Fully Booked
+            </Button>
+          ) : (
+            <Link href={`/student/counselors/book?id=${c.id}`}
+              onClick={onClose}
+              className="flex items-center gap-2 h-10 px-5 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white transition-all">
+              <Calendar size={14} /> Book a Session
+            </Link>
+          )}
         </div>
       </DialogContent>
     </Dialog>
@@ -933,17 +934,16 @@ function CounselorCard({
             >
               View Profile
             </button>
-            <Button
-              disabled={c.availability === 'booked'}
-              onClick={() => onBook(c)}
-              className={`h-8 px-3.5 rounded-xl text-[11px] font-bold whitespace-nowrap ${
-                c.availability === 'booked'
-                  ? 'bg-slate-100 dark:bg-white/6 text-slate-400 cursor-not-allowed'
-                  : 'bg-blue-600 hover:bg-blue-700 text-white shadow-sm'
-              }`}
-            >
-              {c.availability === 'booked' ? 'Fully Booked' : 'Book Now'}
-            </Button>
+            {c.availability === 'booked' ? (
+              <Button disabled className="h-8 px-3.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-slate-100 dark:bg-white/6 text-slate-400 cursor-not-allowed">
+                Fully Booked
+              </Button>
+            ) : (
+              <Link href={`/student/counselors/book?id=${c.id}`}
+                className="flex items-center justify-center h-8 px-3.5 rounded-xl text-[11px] font-bold whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all">
+                Book Now
+              </Link>
+            )}
           </div>
         </div>
 
@@ -1108,12 +1108,6 @@ export default function CounsellorDirectoryPage() {
               Connect with experienced counselors who can guide your admission journey.
             </p>
           </div>
-          <Button
-            onClick={() => activeCounselor ? setBookingOpen(true) : openBooking(COUNSELORS[0])}
-            className="self-start sm:self-auto flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm shadow-blue-200 dark:shadow-blue-900/20 transition-all whitespace-nowrap"
-          >
-            <Calendar size={14} /> Book a Consultation
-          </Button>
         </div>
 
         {/* ── Main 2-column layout ── */}

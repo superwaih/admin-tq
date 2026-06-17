@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Search, Filter, Plus, Eye, MessageSquare, ChevronRight, ChevronLeft, Star, Users, AlertCircle, Activity, CheckCircle } from 'lucide-react';
 
 const STUDENTS = [
@@ -54,9 +55,9 @@ export default function MMICoachingPage() {
             <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">MMI Coaching</h1>
             <p className="text-sm text-slate-500 dark:text-[#8e92ad] mt-1">Prepare students for Multi-Mini Interviews with practice stations and personalized feedback.</p>
           </div>
-          <button className="self-start sm:self-auto flex items-center gap-2 px-4 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl text-sm font-semibold shadow-sm transition-all">
+          <Link href="/counselor/assign-practice" className="self-start sm:self-auto flex items-center gap-2 px-4 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl text-sm font-semibold shadow-sm transition-all">
             <Plus size={15} /> Assign Practice
-          </button>
+          </Link>
         </div>
 
         {/* Summary stats */}
@@ -187,14 +188,14 @@ export default function MMICoachingPage() {
                   ))}
                 </div>
               </div>
-              <button className="mt-3 text-xs font-semibold text-cyan-600 flex items-center gap-1">View Full Analytics <ChevronRight size={12} /></button>
+              <Link href="/counselor/mmi-coaching-analytics" className="mt-3 text-xs font-semibold text-cyan-600 flex items-center gap-1 hover:text-cyan-700 transition-colors">View Full Analytics <ChevronRight size={12} /></Link>
             </div>
 
             {/* Upcoming Practice Sessions */}
             <div className="bg-white dark:bg-[#161a27] rounded-2xl border border-gray-100 dark:border-white/6 shadow-sm p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-bold text-slate-800 dark:text-white">Upcoming Practice</h3>
-                <button className="text-xs font-semibold text-cyan-600 flex items-center gap-1">View All <ChevronRight size={12} /></button>
+                <Link href="/counselor/view-calendar" className="text-xs font-semibold text-cyan-600 flex items-center gap-1 hover:text-cyan-700 transition-colors">View All <ChevronRight size={12} /></Link>
               </div>
               <div className="space-y-3">
                 {UPCOMING_SESSIONS.map((s, i) => (
@@ -214,7 +215,7 @@ export default function MMICoachingPage() {
             <div className="bg-white dark:bg-[#161a27] rounded-2xl border border-gray-100 dark:border-white/6 shadow-sm p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-bold text-slate-800 dark:text-white">Top Performing</h3>
-                <button className="text-xs font-semibold text-cyan-600 flex items-center gap-1">View All <ChevronRight size={12} /></button>
+                <Link href="/counselor/essay-ranking" className="text-xs font-semibold text-cyan-600 flex items-center gap-1 hover:text-cyan-700 transition-colors">View All <ChevronRight size={12} /></Link>
               </div>
               <div className="space-y-3">
                 {TOP_STUDENTS.map((s, i) => (
@@ -229,7 +230,7 @@ export default function MMICoachingPage() {
                   </div>
                 ))}
               </div>
-              <button className="mt-4 text-xs font-semibold text-cyan-600 flex items-center gap-1">View All Rankings <ChevronRight size={12} /></button>
+              <Link href="/counselor/essay-ranking" className="mt-4 text-xs font-semibold text-cyan-600 flex items-center gap-1 hover:text-cyan-700 transition-colors">View All Rankings <ChevronRight size={12} /></Link>
             </div>
           </div>
         </div>

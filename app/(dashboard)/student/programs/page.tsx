@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Plus, Filter, Search, BookOpen, Target, Clock, TrendingUp } from "lucide-react";
 import { ProgramsTable } from "../_components/ProgramsTable";
@@ -23,13 +24,16 @@ export default function MyProgramsPage() {
             <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">My Programs</h1>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Track and manage the programs you're applying to.</p>
           </div>
-          <div className="flex items-center gap-2.5 self-start sm:self-auto">
+          <div className="flex flex-wrap items-center gap-2.5 self-start sm:self-auto">
             <Button variant="outline" className="flex gap-2 rounded-xl border-slate-200 text-slate-600 h-10 px-4 text-sm font-semibold shadow-sm">
               <Filter size={15} /> Filter
             </Button>
-            <Button className="bg-blue-600 hover:bg-blue-700 flex gap-2 rounded-xl h-10 px-5 text-sm font-semibold shadow-sm shadow-blue-200">
+            <Link href="/student/programs/new" className="bg-white hover:bg-gray-50 flex items-center gap-2 rounded-xl h-10 px-5 text-sm font-semibold shadow-sm border border-gray-200 text-slate-700 transition-colors">
               <Plus size={15} /> Add Program
-            </Button>
+            </Link>
+            <Link href="/student/programs/application" className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2 rounded-xl h-10 px-5 text-sm font-semibold shadow-sm shadow-blue-200 text-white transition-colors">
+              <Plus size={15} /> Add New Application
+            </Link>
           </div>
         </div>
 

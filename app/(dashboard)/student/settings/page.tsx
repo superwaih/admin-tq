@@ -8,11 +8,13 @@ import {
   Shield, Key, Monitor, History, ChevronRight,
   Download, Lock, Trash2, AlertCircle,
   Star, CreditCard, Receipt, Package,
-  Check, X,
+  Check, X, LayoutGrid,
 } from 'lucide-react';
+import { useAuth } from '@/src/hooks/useAuth';
+import AssessmentSummaryCard from '@/src/components/assessment/AssessmentSummaryCard';
 
-const TABS = ['Profile', 'Notifications', 'Preferences', 'Security', 'Integrations', 'Billing'] as const;
-type Tab = typeof TABS[number];
+const TABS = ['Profile', 'Assessment', 'Notifications', 'Preferences', 'Security', 'Integrations', 'Billing'] as const;
+type Tab = typeof TABS[number] | 'All';
 
 function Toggle({ on, onChange }: { on: boolean; onChange: () => void }) {
   return (
@@ -78,7 +80,9 @@ function SelectField({ label, sublabel, value, options }: { label: string; subla
 }
 
 export default function StudentSettingsPage() {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<Tab>('Profile');
+
   const [editing, setEditing]     = useState(false);
 
   const [notifs, setNotifs] = useState({
@@ -113,7 +117,9 @@ export default function StudentSettingsPage() {
   }
 
   const tabSections: Record<Tab, string[]> = {
+    All:           ['profile', 'assessment', 'notifications', 'preferences', 'security', 'data', 'integrations', 'billing'],
     Profile:       ['profile', 'security', 'data'],
+    Assessment:    ['assessment'],
     Notifications: ['notifications'],
     Preferences:   ['preferences'],
     Security:      ['security', 'data'],
@@ -133,7 +139,7 @@ export default function StudentSettingsPage() {
         </div>
 
         {/* Tab bar */}
-        <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none flex-wrap">
           {TABS.map(tab => (
             <button
               key={tab}
@@ -147,6 +153,18 @@ export default function StudentSettingsPage() {
               {tab}
             </button>
           ))}
+
+          {/* Show All Settings button */}
+          <button
+            onClick={() => setActiveTab('All')}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              activeTab === 'All'
+                ? 'bg-blue-600 text-white shadow-sm'
+                : 'bg-white dark:bg-[#161a27] text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30 hover:bg-blue-50 dark:hover:bg-blue-500/5'
+            }`}
+          >
+            <LayoutGrid size={11} /> Show All Settings
+          </button>
         </div>
 
         {/* ── Row 1: Profile · Notifications · Preferences ── */}
@@ -234,6 +252,13 @@ export default function StudentSettingsPage() {
                 </div>
               )}
             </SectionCard>
+          )}
+
+          {/* Potential Assessment */}
+          {visible('assessment') && (
+            <div className="md:col-span-2 xl:col-span-3">
+              <AssessmentSummaryCard userId={user?.id ?? 'demo-student'} />
+            </div>
           )}
 
           {/* Notification Preferences */}
@@ -403,8 +428,8 @@ export default function StudentSettingsPage() {
           )}
         </div>
 
-        {/* Bottom save bar — shown on Profile or Preferences tab */}
-        {(activeTab === 'Profile' || activeTab === 'Notifications' || activeTab === 'Preferences') && (
+        {/* Bottom save bar */}
+        {(activeTab === 'Profile' || activeTab === 'Notifications' || activeTab === 'Preferences' || activeTab === 'All') && (
           <div className="flex items-center justify-end gap-3 pt-1 pb-4">
             <button className="px-4 py-2 rounded-xl text-xs font-semibold border border-gray-200 dark:border-white/8 text-slate-600 dark:text-[#8e92ad] hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
               Reset to defaults

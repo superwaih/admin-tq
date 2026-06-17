@@ -134,7 +134,7 @@
   }
 
   body {
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'DM Sans', system-ui, sans-serif;
     background-color: var(--surface-2);
     color: var(--ink);
     line-height: 1.5;
@@ -178,9 +178,23 @@
 /* ── White cards → dark card surface ── */
 .dark .bg-white { background-color: #161a27 !important; }
 
+/* ── Translucent white surfaces (sticky navs, glass) ── */
+.dark .bg-white\/90 { background-color: rgba(22,26,39,0.90) !important; }
+.dark .bg-white\/80 { background-color: rgba(22,26,39,0.80) !important; }
+.dark .bg-white\/70 { background-color: rgba(22,26,39,0.70) !important; }
+.dark .bg-white\/60 { background-color: rgba(22,26,39,0.60) !important; }
+.dark .bg-white\/50 { background-color: rgba(22,26,39,0.50) !important; }
+.dark .bg-white\/30 { background-color: rgba(255,255,255,0.08) !important; }
+
 /* ── Off-white page wrappers ── */
 .dark .bg-\[\#F8F9FB\],
 .dark .bg-\[\#F8F9FC\] { background-color: #0f1117 !important; }
+
+/* ── Translucent off-white wrappers (sticky navs) ── */
+.dark .bg-\[\#F8F9FB\]\/90,
+.dark .bg-\[\#F8F9FC\]\/90 { background-color: rgba(15,17,23,0.90) !important; }
+.dark .bg-\[\#F8F9FB\]\/80,
+.dark .bg-\[\#F8F9FC\]\/80 { background-color: rgba(15,17,23,0.80) !important; }
 
 /* ── Subtle backgrounds (hover states, alternate rows) ── */
 .dark .bg-slate-50,
@@ -335,14 +349,14 @@
     animation: shimmer 3s linear infinite;
   }
 
-  /* ── Auth form inputs (dark theme) ── */
+  /* ── Auth form inputs (light default, dark override) ── */
   .auth-input {
     width: 100%;
     height: 44px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    background: rgba(255, 255, 255, 0.04);
-    color: #ffffff;
+    border: 1px solid #e2e5ec;
+    background: #ffffff;
+    color: #0f1117;
     font-size: 14px;
     padding: 0 14px;
     outline: none;
@@ -350,16 +364,32 @@
   }
 
   .auth-input::placeholder {
-    color: #40455e;
+    color: #9aa0b4;
   }
 
   .auth-input:focus {
     border-color: rgba(43, 92, 230, 0.55);
     box-shadow: 0 0 0 3px rgba(43, 92, 230, 0.12);
+    background: #ffffff;
+  }
+
+  .dark .auth-input {
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+  }
+
+  .dark .auth-input::placeholder {
+    color: #40455e;
+  }
+
+  .dark .auth-input:focus {
+    border-color: rgba(43, 92, 230, 0.55);
+    box-shadow: 0 0 0 3px rgba(43, 92, 230, 0.12);
     background: rgba(43, 92, 230, 0.04);
   }
 
-  /* ── Auth social buttons ── */
+  /* ── Auth social buttons (light default, dark override) ── */
   .auth-social-btn {
     display: flex;
     align-items: center;
@@ -367,9 +397,9 @@
     gap: 8px;
     height: 44px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.04);
-    color: #c8ccdf;
+    border: 1px solid #e2e5ec;
+    background: #ffffff;
+    color: #4a4d5a;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
@@ -377,6 +407,18 @@
   }
 
   .auth-social-btn:hover {
+    background: #f6f7f9;
+    border-color: #d3d7e0;
+    color: #0f1117;
+  }
+
+  .dark .auth-social-btn {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    color: #c8ccdf;
+  }
+
+  .dark .auth-social-btn:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.13);
     color: #ffffff;

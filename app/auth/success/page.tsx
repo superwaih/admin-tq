@@ -2,10 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 export default function SuccessPage() {
   return (
     <div className="min-h-screen bg-[#F8F9FB] flex items-center justify-center p-6">
+      <ThemeToggle floating />
       <div className="w-full max-w-[440px] bg-white rounded-[32px] border border-gray-100 shadow-xl p-12 text-center space-y-8">
         <div className="flex justify-center">
           <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center">

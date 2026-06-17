@@ -209,16 +209,12 @@ export default function StrategyAdvisorPage() {
             <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight">Strategy Advisor</h1>
             <p className="text-sm text-slate-500 mt-1">AI-powered recommendations to improve your admission chances.</p>
           </div>
-          <button
-            onClick={handleRunAnalysis}
-            className="self-start sm:self-auto flex items-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-sm shadow-blue-200 transition-all disabled:opacity-70"
-            disabled={analysisRunning}
+          <Link
+            href="/student/strategy/analysis"
+            className="self-start sm:self-auto flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-sm shadow-blue-200 transition-all"
           >
-            {analysisRunning
-              ? <RefreshCw size={15} className="animate-spin" />
-              : <Sparkles size={15} />}
-            {analysisRunning ? 'Analysing…' : 'Run New Analysis'}
-          </button>
+            <Sparkles size={15} /> Run New Analysis
+          </Link>
         </div>
 
         {/* ── Two-column grid ─────────────────────────────────────────────── */}

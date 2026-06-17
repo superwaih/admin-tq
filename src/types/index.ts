@@ -120,6 +120,8 @@ export interface Student {
   riskLevel: RiskLevel;
   bgColor: string;
   textColor: string;
+  /** The user id this student's assessment data is stored under, when it differs from `id`. */
+  assessmentUserId?: string;
 }
 
 export interface EssayQueueItem {

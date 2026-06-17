@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/src/hooks/useAuth';
 import { AuthService } from '@/src/services/authService';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 const studentFeatures = [
   { title: "Live probability scores", desc: "See your real-time odds for every program" },
@@ -59,6 +60,7 @@ export default function StudentOnboardingPage() {
 
   return (
     <div className="flex min-h-screen bg-white">
+      <ThemeToggle floating />
       {/* Left Sidebar */}
       <div className="hidden lg:flex w-[40%] bg-[#0B0E14] text-white p-16 flex-col justify-between relative overflow-hidden">
         <div className="z-10">

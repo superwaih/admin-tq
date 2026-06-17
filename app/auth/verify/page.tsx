@@ -7,6 +7,7 @@ import { Mail, Loader2 } from "lucide-react";
 import { useAuth } from '@/src/hooks/useAuth';
 import { Role } from '@/src/types/auth';
 import { AuthService } from '@/src/services/authService'; // Direct import for resend
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 export default function VerifyPage() {
   const searchParams = useSearchParams();
@@ -73,6 +74,7 @@ export default function VerifyPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FB] flex items-center justify-center p-6">
+      <ThemeToggle floating />
       <div className="w-full max-w-[440px] bg-white rounded-[32px] border border-gray-100 shadow-xl p-12 text-center space-y-8">
         
         <div className="flex justify-center">

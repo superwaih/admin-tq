@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { CheckCircle2, X, ArrowRight, Sparkles, Users, GraduationCap, Shield, Zap, HelpCircle, ChevronDown } from 'lucide-react';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 /* ── Data ──────────────────────────────────────────────────────────────────── */
 
@@ -129,7 +130,7 @@ export default function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#070b14] text-white antialiased">
+    <div className="min-h-screen bg-[#F8F9FB] text-slate-900 antialiased">
 
       {/* Background glow */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -137,18 +138,19 @@ export default function PricingPage() {
       </div>
 
       {/* ── Nav ──────────────────────────────────────────────────────────────── */}
-      <header className="relative z-10 border-b border-white/[0.06]">
+      <header className="relative z-10 border-b border-gray-200">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-10">
-          <Link href="/" className="font-lora text-xl font-normal tracking-tight text-white">
+          <Link href="/" className="font-lora text-xl font-normal tracking-tight text-slate-900">
             AdmitIQ
           </Link>
           <div className="hidden items-center gap-8 sm:flex">
-            <Link href="/" className="text-sm text-[#8e92ad] hover:text-white transition-colors">Home</Link>
-            <Link href="/#features" className="text-sm text-[#8e92ad] hover:text-white transition-colors">Features</Link>
-            <Link href="/pricing" className="text-sm text-white font-medium">Pricing</Link>
+            <Link href="/" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Home</Link>
+            <Link href="/#features" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Features</Link>
+            <Link href="/pricing" className="text-sm text-slate-900 font-medium">Pricing</Link>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/auth" className="text-sm text-[#8e92ad] hover:text-white transition-colors hidden sm:inline">
+            <ThemeToggle />
+            <Link href="/auth" className="text-sm text-slate-500 hover:text-slate-900 transition-colors hidden sm:inline">
               Sign in
             </Link>
             <Link
@@ -173,11 +175,11 @@ export default function PricingPage() {
             <Sparkles size={11} />
             Simple, transparent pricing
           </div>
-          <h1 className="font-lora text-4xl font-normal text-white sm:text-5xl lg:text-6xl">
+          <h1 className="font-lora text-4xl font-normal text-slate-900 sm:text-5xl lg:text-6xl">
             Start free.{' '}
             <span className="admitiq-gradient-text">Upgrade when ready.</span>
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#8e92ad]">
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-slate-500">
             AdmitIQ is free to start. Upgrade to Pro for live AI scores, unlimited essay drafting, and MMI practice — or get the full counselor suite for your school.
           </p>
 
@@ -185,22 +187,22 @@ export default function PricingPage() {
           <div className="mt-8 flex items-center justify-center gap-3">
             <button
               onClick={() => setAnnual(false)}
-              className={`text-sm font-medium transition-colors ${!annual ? 'text-white' : 'text-[#8e92ad]'}`}
+              className={`text-sm font-medium transition-colors ${!annual ? 'text-slate-900' : 'text-slate-500'}`}
             >
               Monthly
             </button>
             <button
               onClick={() => setAnnual((v) => !v)}
-              className="relative h-7 w-12 rounded-full border border-white/[0.15] bg-white/[0.08] transition-colors"
+              className="relative h-7 w-12 rounded-full border border-gray-200 bg-gray-100 transition-colors"
             >
               <span
-                className="absolute top-1 h-5 w-5 rounded-full bg-white transition-all"
+                className="absolute top-1 h-5 w-5 rounded-full bg-[#2b5ce6] transition-all"
                 style={{ left: annual ? '24px' : '3px' }}
               />
             </button>
             <button
               onClick={() => setAnnual(true)}
-              className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${annual ? 'text-white' : 'text-[#8e92ad]'}`}
+              className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${annual ? 'text-slate-900' : 'text-slate-500'}`}
             >
               Annual
               <span
@@ -224,12 +226,12 @@ export default function PricingPage() {
               return (
                 <div
                   key={plan.id}
-                  className="relative flex flex-col rounded-3xl border bg-[#0d1020] p-7 transition-all"
+                  className="relative flex flex-col rounded-3xl border border-gray-200 bg-white p-7 transition-all"
                   style={{
-                    borderColor: isPopular ? plan.accentBorder : 'rgba(255,255,255,0.07)',
+                    borderColor: isPopular ? plan.accentBorder : undefined,
                     boxShadow: isPopular
-                      ? `0 0 0 1px ${plan.accentBorder}, 0 20px 60px rgba(0,0,0,0.5), 0 0 80px ${plan.accentAlpha}`
-                      : '0 4px 24px rgba(0,0,0,0.35)',
+                      ? `0 0 0 1px ${plan.accentBorder}, 0 20px 60px rgba(43,92,230,0.12), 0 0 80px ${plan.accentAlpha}`
+                      : '0 4px 24px rgba(15,17,23,0.06)',
                   }}
                 >
                   {/* Popular badge */}
@@ -252,25 +254,25 @@ export default function PricingPage() {
                     </div>
                   </div>
 
-                  <h3 className="text-lg font-semibold text-white">{plan.name}</h3>
-                  <p className="mt-1 text-xs text-[#8e92ad]">{plan.description}</p>
+                  <h3 className="text-lg font-semibold text-slate-900">{plan.name}</h3>
+                  <p className="mt-1 text-xs text-slate-500">{plan.description}</p>
 
                   {/* Price */}
                   <div className="my-6 flex items-end gap-1">
-                    <span className="font-lora text-4xl font-normal text-white">
+                    <span className="font-lora text-4xl font-normal text-slate-900">
                       ${price}
                     </span>
                     {price > 0 && (
-                      <span className="mb-1.5 text-sm text-[#8e92ad]">
+                      <span className="mb-1.5 text-sm text-slate-500">
                         /{annual ? 'year' : 'mo'}
                       </span>
                     )}
                     {price === 0 && (
-                      <span className="mb-1.5 text-sm text-[#8e92ad]">forever</span>
+                      <span className="mb-1.5 text-sm text-slate-500">forever</span>
                     )}
                   </div>
                   {annual && price > 0 && (
-                    <p className="mb-6 -mt-3 text-xs text-[#8e92ad]">
+                    <p className="mb-6 -mt-3 text-xs text-slate-500">
                       equiv. ${Math.round(price / 12)}/mo
                     </p>
                   )}
@@ -278,13 +280,15 @@ export default function PricingPage() {
                   {/* CTA */}
                   <Link href={plan.ctaHref} className="block">
                     <button
-                      className="mb-7 h-11 w-full rounded-xl text-sm font-semibold transition-all hover:opacity-90"
+                      className={`mb-7 h-11 w-full rounded-xl text-sm font-semibold transition-all hover:opacity-90 ${
+                        plan.ctaStyle === 'outline'
+                          ? 'border border-gray-200 bg-gray-100 text-slate-700 hover:bg-gray-100'
+                          : ''
+                      }`}
                       style={
-                        plan.ctaStyle === 'filled'
+                        plan.ctaStyle === 'filled' || plan.ctaStyle === 'teal'
                           ? { background: plan.accent, color: 'white', boxShadow: `0 4px 20px ${plan.accentAlpha}` }
-                          : plan.ctaStyle === 'teal'
-                          ? { background: plan.accent, color: 'white', boxShadow: `0 4px 20px ${plan.accentAlpha}` }
-                          : { background: 'rgba(255,255,255,0.06)', color: '#c8ccdf', border: '1px solid rgba(255,255,255,0.08)' }
+                          : undefined
                       }
                     >
                       {plan.cta}
@@ -297,7 +301,7 @@ export default function PricingPage() {
                       feature ? (
                         <li key={i} className="flex items-start gap-2.5">
                           <CheckCircle2 size={14} className="mt-0.5 shrink-0" style={{ color: plan.accent }} />
-                          <span className="text-xs leading-relaxed text-[#c8ccdf]">{feature}</span>
+                          <span className="text-xs leading-relaxed text-slate-700">{feature}</span>
                         </li>
                       ) : null
                     )}
@@ -310,17 +314,17 @@ export default function PricingPage() {
 
         {/* ── Comparison table ──────────────────────────────────────────────── */}
         <section className="mx-auto max-w-5xl px-5 pb-20">
-          <h2 className="mb-10 text-center font-lora text-2xl font-normal text-white sm:text-3xl">
+          <h2 className="mb-10 text-center font-lora text-2xl font-normal text-slate-900 sm:text-3xl">
             Full feature comparison
           </h2>
 
-          <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d1020]">
+          <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
             {/* Header row */}
-            <div className="grid grid-cols-4 border-b border-white/[0.07] bg-white/[0.03]">
-              <div className="p-4 text-xs font-bold uppercase tracking-widest text-[#8e92ad]">Feature</div>
+            <div className="grid grid-cols-4 border-b border-gray-200 bg-gray-50">
+              <div className="p-4 text-xs font-bold uppercase tracking-widest text-slate-500">Feature</div>
               {plans.map((p) => (
                 <div key={p.id} className="p-4 text-center">
-                  <p className="text-sm font-semibold text-white">{p.name}</p>
+                  <p className="text-sm font-semibold text-slate-900">{p.name}</p>
                 </div>
               ))}
             </div>
@@ -329,19 +333,19 @@ export default function PricingPage() {
             {comparisonRows.map((row, i) => (
               <div
                 key={i}
-                className="grid grid-cols-4 border-b border-white/[0.05] last:border-0 hover:bg-white/[0.02] transition-colors"
+                className="grid grid-cols-4 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors"
               >
-                <div className="p-4 text-xs text-[#8e92ad]">{row.label}</div>
+                <div className="p-4 text-xs text-slate-500">{row.label}</div>
                 {(['free', 'pro', 'counselor'] as const).map((planId) => {
                   const val = row[planId];
                   return (
                     <div key={planId} className="flex items-center justify-center p-4">
                       {val === true ? (
-                        <CheckCircle2 size={16} className="text-emerald-400" />
+                        <CheckCircle2 size={16} className="text-emerald-500" />
                       ) : val === false ? (
-                        <X size={14} className="text-[#40455e]" />
+                        <X size={14} className="text-slate-400" />
                       ) : (
-                        <span className="text-center text-xs text-[#c8ccdf]">{val}</span>
+                        <span className="text-center text-xs text-slate-700">{val}</span>
                       )}
                     </div>
                   );
@@ -352,7 +356,7 @@ export default function PricingPage() {
         </section>
 
         {/* ── Trust strip ──────────────────────────────────────────────────── */}
-        <section className="border-y border-white/[0.06] bg-white/[0.02] py-10">
+        <section className="border-y border-gray-200 bg-gray-50 py-10">
           <div className="mx-auto max-w-4xl px-5">
             <div className="grid grid-cols-1 gap-6 text-center sm:grid-cols-3">
               {[
@@ -361,9 +365,9 @@ export default function PricingPage() {
                 { icon: Shield, label: 'No credit card for free plan', sub: 'Start instantly, upgrade when ready' },
               ].map((item) => (
                 <div key={item.label} className="flex flex-col items-center gap-2">
-                  <item.icon size={18} className="text-emerald-400" />
-                  <p className="text-sm font-semibold text-white">{item.label}</p>
-                  <p className="text-xs text-[#8e92ad]">{item.sub}</p>
+                  <item.icon size={18} className="text-emerald-500" />
+                  <p className="text-sm font-semibold text-slate-900">{item.label}</p>
+                  <p className="text-xs text-slate-500">{item.sub}</p>
                 </div>
               ))}
             </div>
@@ -374,7 +378,7 @@ export default function PricingPage() {
         <section className="mx-auto max-w-3xl px-5 py-20">
           <div className="mb-10 flex items-center gap-3">
             <HelpCircle size={20} className="text-[#2b5ce6]" />
-            <h2 className="font-lora text-2xl font-normal text-white sm:text-3xl">
+            <h2 className="font-lora text-2xl font-normal text-slate-900 sm:text-3xl">
               Frequently asked questions
             </h2>
           </div>
@@ -382,23 +386,23 @@ export default function PricingPage() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="rounded-2xl border border-white/[0.07] bg-[#0d1020] overflow-hidden"
+                className="rounded-2xl border border-gray-200 bg-white overflow-hidden"
               >
                 <button
                   type="button"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="flex w-full items-center justify-between px-6 py-4 text-left"
                 >
-                  <span className="text-sm font-medium text-white">{faq.q}</span>
+                  <span className="text-sm font-medium text-slate-900">{faq.q}</span>
                   <ChevronDown
                     size={16}
-                    className="shrink-0 text-[#8e92ad] transition-transform"
+                    className="shrink-0 text-slate-500 transition-transform"
                     style={{ transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0)' }}
                   />
                 </button>
                 {openFaq === i && (
-                  <div className="border-t border-white/[0.06] px-6 pb-5 pt-4">
-                    <p className="text-sm leading-relaxed text-[#8e92ad]">{faq.a}</p>
+                  <div className="border-t border-gray-200 px-6 pb-5 pt-4">
+                    <p className="text-sm leading-relaxed text-slate-500">{faq.a}</p>
                   </div>
                 )}
               </div>
@@ -412,10 +416,10 @@ export default function PricingPage() {
             className="rounded-3xl border border-[#2b5ce6]/25 p-10 text-center sm:p-14"
             style={{ background: 'linear-gradient(135deg, rgba(43,92,230,0.12), rgba(124,58,237,0.08))' }}
           >
-            <h2 className="font-lora text-3xl font-normal text-white sm:text-4xl">
+            <h2 className="font-lora text-3xl font-normal text-slate-900 sm:text-4xl">
               Ready to raise your odds?
             </h2>
-            <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-[#8e92ad]">
+            <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-slate-500">
               Join over 12,000 Canadian students already using AdmitIQ. Start free — no credit card required.
             </p>
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -429,7 +433,7 @@ export default function PricingPage() {
               </Link>
               <Link
                 href="/auth"
-                className="rounded-xl border border-white/[0.12] bg-white/[0.05] px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-white/[0.09]"
+                className="rounded-xl border border-gray-200 bg-white px-7 py-3.5 text-sm font-semibold text-slate-900 transition-all hover:bg-gray-50"
               >
                 Sign in
               </Link>
@@ -440,11 +444,11 @@ export default function PricingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/[0.06] py-8 text-center text-xs text-[#40455e]">
+      <footer className="border-t border-gray-200 py-8 text-center text-xs text-slate-400">
         © 2026 AdmitIQ · Built for Canadian students ·{' '}
-        <Link href="/privacy" className="hover:text-[#8e92ad] transition-colors">Privacy</Link>
+        <Link href="/privacy" className="hover:text-slate-600 transition-colors">Privacy</Link>
         {' · '}
-        <Link href="/terms" className="hover:text-[#8e92ad] transition-colors">Terms</Link>
+        <Link href="/terms" className="hover:text-slate-600 transition-colors">Terms</Link>
       </footer>
     </div>
   );

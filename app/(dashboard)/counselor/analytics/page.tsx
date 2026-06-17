@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { ChevronRight, Download, ArrowUpRight, Users, Calendar, Star, FileText, Mic } from 'lucide-react';
 
 const STAT_CARDS = [
@@ -162,7 +163,7 @@ export default function AnalyticsPage() {
                     ))}
                   </div>
                 </div>
-                <button className="text-xs font-semibold text-cyan-600 flex items-center gap-1">View Full Essay Report <ChevronRight size={12} /></button>
+                <Link href="/counselor/essay-review-report" className="text-xs font-semibold text-cyan-600 flex items-center gap-1 hover:text-cyan-700 transition-colors">View Full Essay Report <ChevronRight size={12} /></Link>
               </div>
 
               {/* MMI Practice Insights */}
@@ -182,7 +183,7 @@ export default function AnalyticsPage() {
                     ))}
                   </div>
                 </div>
-                <button className="text-xs font-semibold text-cyan-600 flex items-center gap-1">View Full MMI Report <ChevronRight size={12} /></button>
+                <Link href="/counselor/mmi-report" className="text-xs font-semibold text-cyan-600 flex items-center gap-1 hover:text-cyan-700 transition-colors">View Full MMI Report <ChevronRight size={12} /></Link>
               </div>
 
               {/* Department Performance */}
@@ -201,7 +202,7 @@ export default function AnalyticsPage() {
                     </div>
                   ))}
                 </div>
-                <button className="mt-4 text-xs font-semibold text-cyan-600 flex items-center gap-1">View Full Department Report <ChevronRight size={12} /></button>
+                <Link href="/counselor/department-performance-report" className="mt-4 text-xs font-semibold text-cyan-600 flex items-center gap-1 hover:text-cyan-700 transition-colors">View Full Department Report <ChevronRight size={12} /></Link>
               </div>
             </div>
 
@@ -239,7 +240,7 @@ export default function AnalyticsPage() {
                   ))}
                 </div>
               </div>
-              <button className="text-xs font-semibold text-cyan-600 flex items-center gap-1">View Full Engagement Report <ChevronRight size={12} /></button>
+              <Link href="/counselor/student-engagement-report" className="text-xs font-semibold text-cyan-600 flex items-center gap-1 hover:text-cyan-700 transition-colors">View Full Engagement Report <ChevronRight size={12} /></Link>
             </div>
 
             {/* Performance Distribution */}
@@ -254,14 +255,14 @@ export default function AnalyticsPage() {
                   </div>
                 ))}
               </div>
-              <button className="mt-3 text-xs font-semibold text-cyan-600 flex items-center gap-1">View Full Performance Report <ChevronRight size={12} /></button>
+              <Link href="/counselor/performance-report" className="mt-3 text-xs font-semibold text-cyan-600 flex items-center gap-1 hover:text-cyan-700 transition-colors">View Full Performance Report <ChevronRight size={12} /></Link>
             </div>
 
             {/* Top Performing Students */}
             <div className="bg-white dark:bg-[#161a27] rounded-2xl border border-gray-100 dark:border-white/6 shadow-sm p-5">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-bold text-slate-800 dark:text-white">Top Performing Students</h3>
-                <button className="text-xs font-semibold text-cyan-600 flex items-center gap-1">View All <ChevronRight size={12} /></button>
+                <Link href="/counselor/essay-ranking" className="text-xs font-semibold text-cyan-600 flex items-center gap-1 hover:text-cyan-700 transition-colors">View All <ChevronRight size={12} /></Link>
               </div>
               <div className="space-y-3">
                 {TOP_STUDENTS.map((s, i) => (

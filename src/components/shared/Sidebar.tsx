@@ -4,7 +4,6 @@ import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { useTheme } from '@/src/hooks/useTheme';
 import {
   LayoutDashboard, TrendingUp, BookOpen, FileText,
   Mic, Lightbulb, GraduationCap, Users,
@@ -12,10 +11,10 @@ import {
   Calendar, MessageSquare, Clock, Wallet, Zap,
   ArrowUpRight, BarChart3, Settings, Star,
   ClipboardList, UserCheck, School, CreditCard,
-  Activity, Bell,
+  Activity, Bell, Compass,
 } from 'lucide-react';
 
-export type RoleType = 'student' | 'counselor' | 'parent';
+export type RoleType = 'student' | 'counselor' | 'parent' | 'uni-college' | 'vocational';
 
 interface MenuItem {
   href: string;
@@ -41,7 +40,6 @@ interface SidebarProps {
 
 export function Sidebar({ role }: SidebarProps) {
   const pathname = usePathname();
-  const { theme } = useTheme();
 
   const config = useMemo((): ThemeConfig => {
     const themes: Record<RoleType, ThemeConfig> = {
@@ -64,6 +62,44 @@ export function Sidebar({ role }: SidebarProps) {
           { href: '/student/settings',   label: 'Settings',            icon: <Settings size={18} /> },
         ],
       },
+      'uni-college': {
+        accent: '#2563EB',
+        accentLight: '#EFF6FF',
+        accentDark: 'rgba(37,99,235,0.18)',
+        gradient: 'from-blue-600 to-blue-700',
+        dot: 'bg-blue-500',
+        roleLabel: 'University / College',
+        menu: [
+          { href: '/university-college-student-route',            label: 'Dashboard',            icon: <LayoutDashboard size={18} /> },
+          { href: '/university-college-student-route/simulator',  label: 'Admission Simulator',  icon: <TrendingUp size={18} /> },
+          { href: '/university-college-student-route/programs',   label: 'My Programs',          icon: <BookOpen size={18} /> },
+          { href: '/university-college-student-route/essay',      label: 'Essay Coach',          icon: <FileText size={18} />, badge: '2' },
+          { href: '/university-college-student-route/mmi',        label: 'MMI Simulator',        icon: <Mic size={18} /> },
+          { href: '/university-college-student-route/strategy',   label: 'Strategy Advisor',     icon: <Lightbulb size={18} />, premium: true },
+          { href: '/university-college-student-route/grades',     label: 'Grade Tracker',        icon: <GraduationCap size={18} /> },
+          { href: '/university-college-student-route/counselors', label: 'Counsellor Directory', icon: <Users size={18} /> },
+          { href: '/university-college-student-route/settings',   label: 'Settings',             icon: <Settings size={18} /> },
+        ],
+      },
+      vocational: {
+        accent: '#2563EB',
+        accentLight: '#EFF6FF',
+        accentDark: 'rgba(37,99,235,0.18)',
+        gradient: 'from-blue-600 to-blue-700',
+        dot: 'bg-blue-500',
+        roleLabel: 'Vocational / Technical',
+        menu: [
+          { href: '/vocational-technical-student-route',            label: 'Dashboard',            icon: <LayoutDashboard size={18} /> },
+          { href: '/vocational-technical-student-route/simulator',  label: 'Admission Simulator',  icon: <TrendingUp size={18} /> },
+          { href: '/vocational-technical-student-route/milestones', label: 'Milestones',           icon: <ClipboardList size={18} /> },
+          { href: '/vocational-technical-student-route/career',     label: 'Career Pathway',       icon: <Compass size={18} /> },
+          { href: '/vocational-technical-student-route/mmi',        label: 'MMI Simulator',        icon: <Mic size={18} /> },
+          { href: '/vocational-technical-student-route/strategy',   label: 'Strategy Advisor',     icon: <Lightbulb size={18} />, premium: true },
+          { href: '/vocational-technical-student-route/grades',     label: 'Grade Tracker',        icon: <GraduationCap size={18} /> },
+          { href: '/vocational-technical-student-route/counselors', label: 'Counsellor Directory', icon: <Users size={18} /> },
+          { href: '/vocational-technical-student-route/settings',   label: 'Settings',             icon: <Settings size={18} /> },
+        ],
+      },
       counselor: {
         accent: '#0891b2',
         accentLight: '#ecfeff',
@@ -75,6 +111,7 @@ export function Sidebar({ role }: SidebarProps) {
           { href: '/counselor',                   label: 'Dashboard',        icon: <LayoutDashboard size={18} /> },
           { href: '/counselor/student-requests',  label: 'Student Requests', icon: <Users size={18} />, badge: '12' },
           { href: '/counselor/my-students',       label: 'My Students',      icon: <GraduationCap size={18} /> },
+          { href: '/counselor/assessments',       label: 'Assessments',      icon: <ClipboardList size={18} /> },
           { href: '/counselor/session-schedule',  label: 'Session Schedule', icon: <Calendar size={18} /> },
           { href: '/counselor/essay-reviews',     label: 'Essay Reviews',    icon: <FileText size={18} />, badge: '8' },
           { href: '/counselor/mmi-coaching',      label: 'MMI Coaching',     icon: <Mic size={18} />, badge: '5' },
@@ -124,7 +161,7 @@ export function Sidebar({ role }: SidebarProps) {
             className="text-[9px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded-md text-white ml-0.5 shrink-0"
             style={{ backgroundColor: config.accent }}
           >
-            {role === 'student' ? 'Beta' : role === 'counselor' ? 'Pro' : 'Plus'}
+            {role === 'counselor' ? 'Pro' : role === 'parent' ? 'Plus' : 'Beta'}
           </span>
           {role === 'counselor' && <ShieldCheck size={15} className="text-sky-500 ml-auto shrink-0" />}
         </div>
@@ -142,8 +179,9 @@ export function Sidebar({ role }: SidebarProps) {
       {/* ── Navigation ──────────────────────────────────── */}
       <nav className="flex-1 px-3 py-4 space-y-3.5 overflow-y-auto">
         {config.menu.map((item: MenuItem) => {
+          const homeHref = config.menu[0]?.href ?? `/${role}`;
           const isActive =
-            item.href === `/${role}`
+            item.href === homeHref
               ? pathname === item.href
               : pathname.startsWith(item.href);
 
@@ -157,14 +195,7 @@ export function Sidebar({ role }: SidebarProps) {
                   ? 'font-semibold shadow-sm'
                   : 'text-slate-500 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-200',
               )}
-              style={
-                isActive
-                  ? {
-                      backgroundColor: theme === 'dark' ? config.accentDark : config.accentLight,
-                      color: config.accent,
-                    }
-                  : {}
-              }
+              style={isActive ? { backgroundColor: config.accentDark, color: config.accent } : {}}
             >
               {/* Active indicator stripe */}
               {isActive && (
@@ -201,7 +232,7 @@ export function Sidebar({ role }: SidebarProps) {
       <div className="mx-4 h-px bg-gradient-to-r from-transparent via-gray-100 dark:via-white/5 to-transparent" />
 
       {/* ── Upgrade card ─────────────────────────────────── */}
-      {role === 'student' && (
+      {(role === 'student' || role === 'uni-college' || role === 'vocational') && (
         <div className="mx-3 my-3">
           <div className={cn('relative overflow-hidden rounded-2xl bg-gradient-to-br p-4', config.gradient)}>
             <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-white/10" />

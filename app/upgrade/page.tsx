@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 import {
   ArrowLeft, CheckCircle2, Lock, Loader2, Zap, CreditCard, Shield,
 } from 'lucide-react';
@@ -73,14 +74,14 @@ export default function UpgradePage() {
 
   if (done) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#070b14] px-5 antialiased">
-        <div className="w-full max-w-[400px] rounded-3xl border border-white/[0.07] bg-[#0d1020] p-10 text-center space-y-6">
+      <div className="flex min-h-screen items-center justify-center bg-[#F8F9FB] px-5 antialiased">
+        <div className="w-full max-w-[400px] rounded-3xl border border-gray-100 bg-white p-10 text-center space-y-6">
           <div className="flex h-16 w-16 mx-auto items-center justify-center rounded-2xl bg-emerald-500/14">
             <CheckCircle2 size={30} className="text-emerald-400" />
           </div>
           <div className="space-y-2">
-            <h2 className="font-lora text-2xl font-normal text-white">You're on Pro!</h2>
-            <p className="text-sm leading-relaxed text-[#8e92ad]">
+            <h2 className="font-lora text-2xl font-normal text-slate-900">You're on Pro!</h2>
+            <p className="text-sm leading-relaxed text-slate-500">
               Your {plan.label} subscription is now active. All Pro features are unlocked.
             </p>
           </div>
@@ -98,7 +99,7 @@ export default function UpgradePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#070b14] text-white antialiased">
+    <div className="min-h-screen bg-[#F8F9FB] text-slate-900 antialiased">
 
       {/* Background glow */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -106,14 +107,17 @@ export default function UpgradePage() {
       </div>
 
       {/* Nav */}
-      <header className="relative z-10 border-b border-white/[0.06] px-5 py-4">
+      <header className="relative z-10 border-b border-gray-200 px-5 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
-          <Link href="/pricing" className="flex items-center gap-1.5 text-sm text-[#8e92ad] hover:text-white transition-colors">
+          <Link href="/pricing" className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 transition-colors">
             <ArrowLeft size={15} /> Back to pricing
           </Link>
-          <Link href="/" className="font-lora text-xl font-normal text-white">AdmitIQ</Link>
-          <div className="flex items-center gap-1.5 text-xs text-emerald-400">
-            <Lock size={12} /> Secure checkout
+          <Link href="/" className="font-lora text-xl font-normal text-slate-900">AdmitIQ</Link>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 text-xs text-emerald-400">
+              <Lock size={12} /> Secure checkout
+            </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>
@@ -126,35 +130,32 @@ export default function UpgradePage() {
 
             {/* Plan selector */}
             <div>
-              <h2 className="font-lora text-2xl font-normal text-white mb-5">Choose your plan</h2>
+              <h2 className="font-lora text-2xl font-normal text-slate-900 mb-5">Choose your plan</h2>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {plans.map((p) => (
                   <button
                     key={p.id}
                     type="button"
                     onClick={() => setSelectedPlan(p.id)}
-                    className="flex flex-col items-start rounded-2xl border p-5 text-left transition-all"
-                    style={{
-                      borderColor: selectedPlan === p.id ? 'rgba(43,92,230,0.4)' : 'rgba(255,255,255,0.07)',
-                      background: selectedPlan === p.id ? 'rgba(43,92,230,0.1)' : 'rgba(255,255,255,0.03)',
-                      boxShadow: selectedPlan === p.id ? '0 0 30px rgba(43,92,230,0.1)' : 'none',
-                    }}
+                    className={`flex flex-col items-start rounded-2xl border p-5 text-left transition-all ${selectedPlan === p.id ? '' : 'border-gray-200 bg-white'}`}
+                    style={selectedPlan === p.id ? {
+                      borderColor: 'rgba(43,92,230,0.4)',
+                      background: 'rgba(43,92,230,0.1)',
+                      boxShadow: '0 0 30px rgba(43,92,230,0.1)',
+                    } : undefined}
                   >
                     <div className="flex w-full items-center justify-between mb-2">
-                      <span className="text-sm font-semibold text-white">{p.label}</span>
+                      <span className="text-sm font-semibold text-slate-900">{p.label}</span>
                       <div
-                        className="flex h-4 w-4 items-center justify-center rounded-full border"
-                        style={{
-                          borderColor: selectedPlan === p.id ? ACCENT : 'rgba(255,255,255,0.25)',
-                          background: selectedPlan === p.id ? ACCENT : 'transparent',
-                        }}
+                        className={`flex h-4 w-4 items-center justify-center rounded-full border ${selectedPlan === p.id ? '' : 'border-gray-300'}`}
+                        style={selectedPlan === p.id ? { borderColor: ACCENT, background: ACCENT } : undefined}
                       >
                         {selectedPlan === p.id && (
-                          <div className="h-1.5 w-1.5 rounded-full bg-white" />
+                          <div className="h-1.5 w-1.5 rounded-full" style={{ background: '#fff' }} />
                         )}
                       </div>
                     </div>
-                    <p className="text-lg font-light text-white">{p.display}</p>
+                    <p className="text-lg font-light text-slate-900">{p.display}</p>
                     {p.savings && (
                       <span
                         className="mt-2 rounded-full px-2 py-0.5 text-[10px] font-bold"
@@ -170,16 +171,16 @@ export default function UpgradePage() {
 
             {/* Payment form */}
             <div>
-              <h2 className="font-lora text-2xl font-normal text-white mb-5">Payment details</h2>
+              <h2 className="font-lora text-2xl font-normal text-slate-900 mb-5">Payment details</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
 
                 {/* Card number */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                     Card number
                   </label>
                   <div className="relative">
-                    <CreditCard size={15} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#40455e]" />
+                    <CreditCard size={15} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
                     <input
                       type="text"
                       inputMode="numeric"
@@ -194,7 +195,7 @@ export default function UpgradePage() {
 
                 {/* Name on card */}
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">Name on card</label>
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Name on card</label>
                   <input
                     type="text"
                     autoComplete="cc-name"
@@ -209,7 +210,7 @@ export default function UpgradePage() {
                 {/* Expiry + CVC */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">Expiry</label>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Expiry</label>
                     <input
                       type="text"
                       inputMode="numeric"
@@ -221,7 +222,7 @@ export default function UpgradePage() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">CVC</label>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500">CVC</label>
                     <input
                       type="text"
                       inputMode="numeric"
@@ -235,14 +236,14 @@ export default function UpgradePage() {
                 </div>
 
                 {/* Security badges */}
-                <div className="flex flex-wrap items-center gap-4 rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3">
-                  <div className="flex items-center gap-1.5 text-xs text-[#8e92ad]">
+                <div className="flex flex-wrap items-center gap-4 rounded-xl border border-gray-200 bg-white px-4 py-3">
+                  <div className="flex items-center gap-1.5 text-xs text-slate-500">
                     <Lock size={12} className="text-emerald-400" /> 256-bit SSL
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs text-[#8e92ad]">
+                  <div className="flex items-center gap-1.5 text-xs text-slate-500">
                     <Shield size={12} className="text-emerald-400" /> PCI compliant
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs text-[#8e92ad]">
+                  <div className="flex items-center gap-1.5 text-xs text-slate-500">
                     <CheckCircle2 size={12} className="text-emerald-400" /> Cancel anytime
                   </div>
                 </div>
@@ -263,11 +264,11 @@ export default function UpgradePage() {
                   )}
                 </Button>
 
-                <p className="text-center text-xs text-[#40455e]">
+                <p className="text-center text-xs text-slate-400">
                   By subscribing you agree to our{' '}
-                  <Link href="/terms" className="hover:text-[#8e92ad] transition-colors underline">Terms</Link>
+                  <Link href="/terms" className="hover:text-slate-500 transition-colors underline">Terms</Link>
                   {' '}and{' '}
-                  <Link href="/privacy" className="hover:text-[#8e92ad] transition-colors underline">Privacy Policy</Link>.
+                  <Link href="/privacy" className="hover:text-slate-500 transition-colors underline">Privacy Policy</Link>.
                   Cancel anytime — no questions asked.
                 </p>
               </form>
@@ -276,7 +277,7 @@ export default function UpgradePage() {
 
           {/* ── Right: Order summary ─────────────────────────── */}
           <div className="lg:sticky lg:top-8 h-fit">
-            <div className="rounded-3xl border border-white/[0.07] bg-[#0d1020] p-7">
+            <div className="rounded-3xl border border-gray-100 bg-white p-7">
 
               {/* Plan badge */}
               <div
@@ -285,21 +286,21 @@ export default function UpgradePage() {
               >
                 <Zap size={16} style={{ color: ACCENT }} />
                 <div>
-                  <p className="text-sm font-semibold text-white">{plan.label}</p>
-                  <p className="text-[10px] text-[#8e92ad]">Billed {plan.period}</p>
+                  <p className="text-sm font-semibold text-slate-900">{plan.label}</p>
+                  <p className="text-[10px] text-slate-500">Billed {plan.period}</p>
                 </div>
-                <p className="ml-auto font-lora text-xl text-white">{plan.display}</p>
+                <p className="ml-auto font-lora text-xl text-slate-900">{plan.display}</p>
               </div>
 
               {/* What's included */}
-              <p className="mb-4 text-[10px] font-bold uppercase tracking-widest text-[#8e92ad]">
+              <p className="mb-4 text-[10px] font-bold uppercase tracking-widest text-slate-500">
                 What's included
               </p>
               <ul className="space-y-3 mb-7">
                 {included.map((item) => (
                   <li key={item} className="flex items-start gap-2.5">
                     <CheckCircle2 size={14} className="mt-0.5 shrink-0" style={{ color: ACCENT }} />
-                    <span className="text-xs leading-relaxed text-[#c8ccdf]">{item}</span>
+                    <span className="text-xs leading-relaxed text-slate-700">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -307,16 +308,16 @@ export default function UpgradePage() {
               {/* Trial note */}
               <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/8 px-4 py-3">
                 <p className="text-xs text-emerald-400 font-semibold">14-day free trial</p>
-                <p className="mt-0.5 text-[10px] leading-relaxed text-[#8e92ad]">
+                <p className="mt-0.5 text-[10px] leading-relaxed text-slate-500">
                   You won't be charged until your trial ends. Cancel anytime before then.
                 </p>
               </div>
 
               {/* Price breakdown */}
-              <div className="mt-6 space-y-2.5 border-t border-white/[0.07] pt-5">
+              <div className="mt-6 space-y-2.5 border-t border-gray-100 pt-5">
                 <div className="flex justify-between text-sm">
-                  <span className="text-[#8e92ad]">Subtotal</span>
-                  <span className="text-white">{plan.display}</span>
+                  <span className="text-slate-500">Subtotal</span>
+                  <span className="text-slate-900">{plan.display}</span>
                 </div>
                 {plan.savings && (
                   <div className="flex justify-between text-sm">
@@ -324,20 +325,20 @@ export default function UpgradePage() {
                     <span className="text-emerald-400">−$79</span>
                   </div>
                 )}
-                <div className="flex justify-between border-t border-white/[0.07] pt-2.5 text-base font-semibold">
-                  <span className="text-white">Total today</span>
-                  <span className="text-white">$0.00</span>
+                <div className="flex justify-between border-t border-gray-100 pt-2.5 text-base font-semibold">
+                  <span className="text-slate-900">Total today</span>
+                  <span className="text-slate-900">$0.00</span>
                 </div>
-                <p className="text-[10px] text-[#40455e]">
+                <p className="text-[10px] text-slate-400">
                   {plan.display} charged after your 14-day trial
                 </p>
               </div>
             </div>
 
             {/* Need help */}
-            <p className="mt-4 text-center text-xs text-[#40455e]">
+            <p className="mt-4 text-center text-xs text-slate-400">
               Questions?{' '}
-              <a href="mailto:support@admitiq.ca" className="text-[#8e92ad] hover:text-white transition-colors">
+              <a href="mailto:support@admitiq.ca" className="text-slate-500 hover:text-slate-900 transition-colors">
                 Contact support
               </a>
             </p>

@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useAuth } from '@/src/hooks/useAuth';
 import { useState } from 'react';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 export default function ParentSignupPage() {
   const [email, setEmail] = useState('');
@@ -25,6 +26,7 @@ export default function ParentSignupPage() {
 
   return (
     <div className="flex min-h-screen bg-white">
+      <ThemeToggle floating />
       {/* Left Sidebar */}
       <div className="hidden lg:flex w-[40%] bg-[#0B0E14] text-white p-16 flex-col justify-between relative overflow-hidden">
         <div className="z-10">

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { ShieldCheck } from 'lucide-react';
 import { useAuth } from '@/src/hooks/useAuth';
 import { AuthService } from '@/src/services/authService';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 const counselorFeatures = [
   { title: "Cohort management", desc: "Monitor all students in one place" },
@@ -59,6 +60,7 @@ export default function CounselorOnboardingPage() {
 
   return (
     <div className="flex min-h-screen bg-white">
+      <ThemeToggle floating />
       {/* Left Sidebar */}
       <div className="hidden lg:flex w-[40%] bg-[#0B0E14] text-white p-16 flex-col justify-between relative overflow-hidden">
         <div className="z-10">

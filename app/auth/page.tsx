@@ -12,6 +12,8 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTheme } from '@/src/hooks/useTheme';
+import ThemeToggle from '@/src/components/shared/ThemeToggle';
 
 const roles = [
   {
@@ -77,7 +79,7 @@ export default function RoleSelectionPage() {
   const current = roles.find((r) => r.id === selected)!;
 
   return (
-    <div className="min-h-screen bg-[#070b14] text-white antialiased flex flex-col">
+    <div className="min-h-screen bg-[#F8F9FB] text-slate-900 antialiased flex flex-col">
 
       {/* ── Background glow ─────────────────────────────────── */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -85,23 +87,24 @@ export default function RoleSelectionPage() {
       </div>
 
       {/* ── Header ──────────────────────────────────────────── */}
-      <header className="relative z-10 flex items-center justify-between border-b border-white/[0.06] px-5 py-4 lg:px-10">
+      <header className="relative z-10 flex items-center justify-between border-b border-gray-200 px-5 py-4 lg:px-10">
         <Link
           href="/"
-          className="flex items-center gap-1.5 text-sm text-[#8e92ad] transition-colors hover:text-white"
+          className="flex items-center gap-1.5 text-sm text-slate-500 transition-colors hover:text-slate-900"
         >
           <ArrowLeft size={15} />
           Back
         </Link>
 
-        <Link href="/" className="font-lora text-xl font-normal tracking-tight text-white">
+        <Link href="/" className="font-lora text-xl font-normal tracking-tight text-slate-900">
           AdmitIQ
         </Link>
 
-        <div className="w-16 text-right">
-          <Link href="/auth/signup" className="text-xs text-[#8e92ad] hover:text-white transition-colors hidden sm:inline">
+        <div className="flex items-center justify-end gap-3">
+          <Link href="/auth/signup" className="text-xs text-slate-500 hover:text-slate-900 transition-colors hidden sm:inline">
             New account →
           </Link>
+          <ThemeToggle />
         </div>
       </header>
 
@@ -113,16 +116,16 @@ export default function RoleSelectionPage() {
           <p className="mb-3 text-[10px] font-bold uppercase tracking-widest text-[#2b5ce6]">
             Welcome back
           </p>
-          <h1 className="font-lora text-3xl font-normal text-white sm:text-4xl lg:text-5xl">
+          <h1 className="font-lora text-3xl font-normal text-slate-900 sm:text-4xl lg:text-5xl">
             Who are you signing in as?
           </h1>
-          <p className="mx-auto mt-4 max-w-sm text-sm text-[#8e92ad]">
+          <p className="mx-auto mt-4 max-w-sm text-sm text-slate-500">
             Choose your role to get started. You can switch between linked accounts at any time.
           </p>
         </div>
 
         {/* ── Mobile tab switcher (sm and below) ── */}
-        <div className="mb-6 flex w-full max-w-sm gap-1 rounded-2xl border border-white/[0.08] bg-white/[0.04] p-1 sm:hidden">
+        <div className="mb-6 flex w-full max-w-sm gap-1 rounded-2xl border border-gray-200 bg-white p-1 sm:hidden">
           {roles.map((r) => {
             const Icon = r.icon;
             return (
@@ -130,7 +133,7 @@ export default function RoleSelectionPage() {
                 key={r.id}
                 onClick={() => setSelected(r.id)}
                 className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-semibold transition-all duration-200 ${
-                  selected === r.id ? 'bg-white/10 text-white' : 'text-[#8e92ad]'
+                  selected === r.id ? 'bg-gray-100 text-slate-900' : 'text-slate-500'
                 }`}
               >
                 <Icon size={14} />
@@ -159,9 +162,9 @@ export default function RoleSelectionPage() {
         </div>
 
         {/* Footer */}
-        <p className="mt-10 text-center text-xs text-[#40455e]">
+        <p className="mt-10 text-center text-xs text-slate-400">
           New to AdmitIQ?{' '}
-          <Link href="/auth/signup" className="text-[#7b9ef0] hover:text-[#2b5ce6] transition-colors">
+          <Link href="/auth/signup" className="text-blue-600 dark:text-blue-300 hover:text-[#2b5ce6] transition-colors">
             Create a free account →
           </Link>
         </p>
@@ -181,16 +184,24 @@ interface RoleCardProps {
 
 function RoleCard({ role, isSelected, onSelect, router }: RoleCardProps) {
   const Icon = role.icon;
+  const theme = useTheme((s) => s.theme);
+  const isDark = theme === 'dark';
 
   return (
     <div
       onClick={onSelect}
-      className="flex flex-col rounded-2xl border bg-[#0d1020] p-6 lg:p-7 transition-all duration-250 cursor-pointer"
+      className="flex flex-col rounded-2xl border bg-white p-6 lg:p-7 transition-all duration-250 cursor-pointer"
       style={{
-        borderColor: isSelected ? role.accentBorder : 'rgba(255,255,255,0.06)',
+        borderColor: isSelected
+          ? role.accentBorder
+          : isDark
+            ? 'rgba(255,255,255,0.06)'
+            : 'rgba(15,17,23,0.08)',
         boxShadow: isSelected
-          ? `0 0 0 1px ${role.accentBorder}, 0 8px 40px rgba(0,0,0,0.5), 0 0 60px ${role.accentGlow}`
-          : '0 4px 24px rgba(0,0,0,0.35)',
+          ? `0 0 0 1px ${role.accentBorder}, 0 8px 40px ${isDark ? 'rgba(0,0,0,0.5)' : 'rgba(15,17,23,0.10)'}, 0 0 60px ${role.accentGlow}`
+          : isDark
+            ? '0 4px 24px rgba(0,0,0,0.35)'
+            : '0 4px 24px rgba(15,17,23,0.06)',
         transform: isSelected ? 'translateY(-3px)' : 'translateY(0)',
       }}
     >
@@ -198,9 +209,15 @@ function RoleCard({ role, isSelected, onSelect, router }: RoleCardProps) {
       <div className="mb-5 flex items-start justify-between">
         <div
           className="inline-flex h-12 w-12 items-center justify-center rounded-xl transition-colors"
-          style={{ background: isSelected ? role.accentAlpha : 'rgba(255,255,255,0.05)' }}
+          style={{
+            background: isSelected
+              ? role.accentAlpha
+              : isDark
+                ? 'rgba(255,255,255,0.05)'
+                : 'rgba(15,17,23,0.04)',
+          }}
         >
-          <Icon size={22} style={{ color: isSelected ? role.accent : '#8e92ad' }} />
+          <Icon size={22} style={{ color: isSelected ? role.accent : isDark ? '#8e92ad' : '#64748b' }} />
         </div>
 
         {isSelected && (
@@ -216,11 +233,15 @@ function RoleCard({ role, isSelected, onSelect, router }: RoleCardProps) {
       {/* Title & tagline */}
       <h3
         className="mb-1 text-lg font-semibold transition-colors"
-        style={{ color: isSelected ? '#ffffff' : '#c8ccdf' }}
+        style={{
+          color: isSelected
+            ? isDark ? '#ffffff' : '#0f1117'
+            : isDark ? '#c8ccdf' : '#334155',
+        }}
       >
         {role.label}
       </h3>
-      <p className="mb-6 text-xs leading-relaxed text-[#8e92ad]">{role.tagline}</p>
+      <p className="mb-6 text-xs leading-relaxed text-slate-500">{role.tagline}</p>
 
       {/* Features */}
       <ul className="mb-7 flex-1 space-y-3">
@@ -229,11 +250,15 @@ function RoleCard({ role, isSelected, onSelect, router }: RoleCardProps) {
             <CheckCircle2
               size={14}
               className="mt-0.5 shrink-0 transition-colors"
-              style={{ color: isSelected ? role.accent : '#40455e' }}
+              style={{ color: isSelected ? role.accent : isDark ? '#40455e' : '#cbd5e1' }}
             />
             <span
               className="text-xs leading-relaxed transition-colors"
-              style={{ color: isSelected ? '#c8ccdf' : '#8e92ad' }}
+              style={{
+                color: isSelected
+                  ? isDark ? '#c8ccdf' : '#334155'
+                  : isDark ? '#8e92ad' : '#64748b',
+              }}
             >
               {f}
             </span>
@@ -250,8 +275,10 @@ function RoleCard({ role, isSelected, onSelect, router }: RoleCardProps) {
         <Button
           className="h-11 w-full rounded-xl text-sm font-semibold transition-all duration-200"
           style={{
-            background: isSelected ? role.accent : 'rgba(255,255,255,0.05)',
-            color: isSelected ? '#ffffff' : '#8e92ad',
+            background: isSelected
+              ? role.accent
+              : isDark ? 'rgba(255,255,255,0.05)' : 'rgba(15,17,23,0.04)',
+            color: isSelected ? '#ffffff' : isDark ? '#8e92ad' : '#64748b',
             boxShadow: isSelected ? `0 4px 20px ${role.accentGlow}` : 'none',
           }}
         >

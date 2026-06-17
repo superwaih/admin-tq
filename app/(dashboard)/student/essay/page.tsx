@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Plus, FileText, Clock } from "lucide-react";
 import { AiFeedbackPanel } from "../_components/AiFeedbackPanel";
@@ -21,9 +22,9 @@ export default function EssayCoachPage() {
             <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">Essay Coach</h1>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Write, refine, and get AI-powered feedback on your applications.</p>
           </div>
-          <Button className="bg-blue-600 hover:bg-blue-700 flex gap-2 rounded-xl h-10 px-5 text-sm font-semibold shadow-sm shadow-blue-200 self-start sm:self-auto">
+          <Link href="/student/essay/new" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-10 px-5 text-sm font-semibold shadow-sm shadow-blue-200 transition-all self-start sm:self-auto">
             <Plus size={15} /> New Essay
-          </Button>
+          </Link>
         </div>
 
         {/* Essay selector row */}

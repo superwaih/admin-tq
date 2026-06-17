@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 import Link from 'next/link';
 import {
   ChevronLeft, ChevronDown, Calendar, Upload, Tag, X,
-  HelpCircle, FileText, CheckCircle2,
+  HelpCircle, FileText, CheckCircle2, Lock, Users,
 } from 'lucide-react';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -94,9 +94,22 @@ const STAGE_STEPS: Array<{ stage: Stage; dot: string; desc: string }> = [
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function AddNewApplicationPage() {
   // Section 1 — Student
-  const [student,  setStudent]  = useState('');
-  const [email,    setEmail]    = useState('');
-  const [phone,    setPhone]    = useState('');
+  const [fullName,  setFullName]  = useState('');
+  const [email,     setEmail]     = useState('');
+  const [phone,     setPhone]     = useState('');
+  const [dob,       setDob]       = useState('');
+  const [gender,    setGender]    = useState('');
+  const [level,     setLevel]     = useState('');
+  const [gpa,       setGpa]       = useState('');
+  const studentId = 'STU-2025-104';
+
+  // Section 2 — Parents / Guidance
+  const [parentName,         setParentName]         = useState('');
+  const [parentPhone,        setParentPhone]        = useState('');
+  const [parentRelationship, setParentRelationship] = useState('');
+
+  // kept for summary/compat
+  const student = fullName;
 
   // Section 2 — University & Program
   const [university,   setUniversity]   = useState('');
@@ -212,22 +225,31 @@ export default function AddNewApplicationPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {/* Row 1 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                 <div>
-                  <Label required>Student</Label>
-                  <Select
-                    placeholder="Search by name or select student"
-                    options={['Amina Yusuf','Daniel Musa','Fatima Bello','Ibrahim Ali','Maryam Okafor','Joshua Adeyemi','Halima Sani','Samuel Johnson']}
-                    value={student}
-                    onChange={setStudent}
-                  />
+                  <Label required>Full Name</Label>
+                  <Input placeholder="Enter full name" value={fullName} onChange={setFullName} />
                 </div>
                 <div>
                   <Label>Email</Label>
-                  <Input placeholder="Student@gmail.com" type="email" value={email} onChange={setEmail} />
+                  <Input placeholder="Enter email address" type="email" value={email} onChange={setEmail} />
                 </div>
                 <div>
-                  <Label>Phone</Label>
+                  <Label>Gender</Label>
+                  <Select
+                    placeholder="Select gender"
+                    options={['Male','Female','Non-binary','Prefer not to say']}
+                    value={gender}
+                    onChange={setGender}
+                  />
+                </div>
+              </div>
+
+              {/* Row 2 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                <div>
+                  <Label>Phone Number</Label>
                   <div className="flex gap-2">
                     <div className="relative w-20 shrink-0">
                       <select className="w-full appearance-none pl-2 pr-6 py-2.5 text-xs bg-white dark:bg-[#1d2133] border border-gray-200 dark:border-white/10 rounded-xl text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 transition-all">
@@ -237,15 +259,88 @@ export default function AddNewApplicationPage() {
                       </select>
                       <ChevronDown size={10} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                     </div>
-                    <Input placeholder="(123) 456-7890" value={phone} onChange={setPhone} />
+                    <Input placeholder="Enter phone number" value={phone} onChange={setPhone} />
+                  </div>
+                </div>
+                <div>
+                  <Label>Date of Birth</Label>
+                  <DateInput value={dob} onChange={setDob} placeholder="Select date of birth" />
+                </div>
+                <div>
+                  <Label>Level</Label>
+                  <Select
+                    placeholder="Select level"
+                    options={['Grade 9','Grade 10','Grade 11','Grade 12','Undergraduate Year 1','Undergraduate Year 2','Undergraduate Year 3','Undergraduate Year 4','Graduate']}
+                    value={level}
+                    onChange={setLevel}
+                  />
+                </div>
+              </div>
+
+              {/* Row 3 — GPA + Student ID */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                  <Label>GPA <span className="text-[10px] font-normal text-slate-400 ml-1">(Optional)</span></Label>
+                  <Input placeholder="e.g. 3.7" value={gpa} onChange={setGpa} />
+                </div>
+                <div>
+                  <Label>Student ID</Label>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 flex items-center gap-2 px-3 py-2.5 bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-xl">
+                      <span className="text-sm text-slate-400 dark:text-[#8e92ad] flex-1">Auto-generated ID</span>
+                      <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{studentId}</span>
+                    </div>
+                    <div className="w-9 h-9 flex items-center justify-center bg-gray-100 dark:bg-white/8 rounded-xl shrink-0">
+                      <Lock size={13} className="text-slate-400 dark:text-[#8e92ad]" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Section 2 — University & Program */}
+            {/* Section 2 — Parents / Guidance Information */}
             <div className="bg-white dark:bg-[#161a27] rounded-2xl border border-gray-100 dark:border-white/6 shadow-sm p-5 lg:p-6">
-              <SectionHeader num="2" title="University & Program Information" sub="Select the university and program the student is applying to" />
+              <SectionHeader
+                num="2"
+                title="Parents / Guidance Information"
+                sub="Add parent or guidance counselor contact details"
+                optional
+              />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                  <Label>Full Name</Label>
+                  <Input placeholder="Enter full name" value={parentName} onChange={setParentName} />
+                </div>
+                <div>
+                  <Label>Phone Number</Label>
+                  <div className="flex gap-2">
+                    <div className="relative w-20 shrink-0">
+                      <select className="w-full appearance-none pl-2 pr-6 py-2.5 text-xs bg-white dark:bg-[#1d2133] border border-gray-200 dark:border-white/10 rounded-xl text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 transition-all">
+                        <option>🇨🇦 +1</option>
+                        <option>🇺🇸 +1</option>
+                        <option>🇬🇧 +44</option>
+                      </select>
+                      <ChevronDown size={10} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+                    </div>
+                    <Input placeholder="Enter phone number" value={parentPhone} onChange={setParentPhone} />
+                  </div>
+                </div>
+                <div>
+                  <Label>Relationship to Student</Label>
+                  <Select
+                    placeholder="Select relationship"
+                    options={['Parent / Guardian','Mother','Father','Grandparent','Legal Guardian','School Guidance Counselor','Other']}
+                    value={parentRelationship}
+                    onChange={setParentRelationship}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Section 3 — University & Program */}
+            <div className="bg-white dark:bg-[#161a27] rounded-2xl border border-gray-100 dark:border-white/6 shadow-sm p-5 lg:p-6">
+              <SectionHeader num="3" title="University & Program Information" sub="Select the university and program the student is applying to" />
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <Label required>University</Label>
@@ -301,9 +396,9 @@ export default function AddNewApplicationPage() {
               </div>
             </div>
 
-            {/* Section 3 — Application Details */}
+            {/* Section 4 — Application Details */}
             <div className="bg-white dark:bg-[#161a27] rounded-2xl border border-gray-100 dark:border-white/6 shadow-sm p-5 lg:p-6">
-              <SectionHeader num="3" title="Application Details" sub="Provide additional details about this application" />
+              <SectionHeader num="4" title="Application Details" sub="Provide additional details about this application" />
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <Label required>Stage</Label>
@@ -381,9 +476,9 @@ export default function AddNewApplicationPage() {
               </div>
             </div>
 
-            {/* Section 4 — Documents & Files */}
+            {/* Section 5 — Documents & Files */}
             <div className="bg-white dark:bg-[#161a27] rounded-2xl border border-gray-100 dark:border-white/6 shadow-sm p-5 lg:p-6">
-              <SectionHeader num="4" title="Documents & Files" sub="Upload any supporting documents related to this application" optional />
+              <SectionHeader num="5" title="Documents & Files" sub="Upload any supporting documents related to this application" optional />
 
               {/* Drop zone */}
               <div
@@ -434,9 +529,9 @@ export default function AddNewApplicationPage() {
               )}
             </div>
 
-            {/* Section 5 — Additional Information */}
+            {/* Section 6 — Additional Information */}
             <div className="bg-white dark:bg-[#161a27] rounded-2xl border border-gray-100 dark:border-white/6 shadow-sm p-5 lg:p-6">
-              <SectionHeader num="5" title="Additional Information" sub="Add any tags or additional information to organize this application" optional />
+              <SectionHeader num="6" title="Additional Information" sub="Add any tags or additional information to organize this application" optional />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {/* Tags */}

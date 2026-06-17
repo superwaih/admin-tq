@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { LoginCredentials, RegisterCredentials, Role, UserProfile, SocialProvider } from '@/src/types/auth';
 import { AuthService } from '../services/authService';
+import { ensureDemoSession } from '@/src/lib/ensure-session';
 
 /* ── Demo users injected when no real token is present ─────────────────────── */
 const DEMO_USERS: Record<string, UserProfile> = {
@@ -40,6 +41,16 @@ function detectDemoRole(): Role | null {
   if (path.startsWith('/counselor')) return 'counselor';
   if (path.startsWith('/parent')) return 'parent';
   if (path.startsWith('/student')) return 'student';
+  // The pathway-specific dashboards are student-only; inject the demo student so
+  // the assessment-completion gate always runs before they load.
+  if (path.startsWith('/university-college-student-route')) return 'student';
+  if (path.startsWith('/vocational-technical-student-route')) return 'student';
+  // The assessment is a student-only flow; inject the demo student there too so
+  // completion status is always checked (and completed students are redirected).
+  if (path.startsWith('/assessment')) return 'student';
+  // The pathway chooser is the post-assessment, student-only step. Without a
+  // demo user here its completion gate would bounce to /assessment and loop.
+  if (path.startsWith('/pathway')) return 'student';
   return null;
 }
 
@@ -65,9 +76,12 @@ export function useAuth() {
       : null;
 
     if (!token) {
-      // No real token — inject a demo user based on the current URL
+      // No real token — inject a demo user based on the current URL.
       const demoRole = detectDemoRole();
       if (demoRole) {
+        // Establish the server-side session cookie FIRST (awaited) so that any
+        // subsequent assessment API call has a verified identity to act on.
+        await ensureDemoSession();
         setUser(DEMO_USERS[demoRole]);
       }
       setLoading(false);
@@ -112,8 +126,19 @@ export function useAuth() {
       }
 
       setUser(userData);
-      router.push(`/${userData.role}`);
-      
+
+      if (userData.role === 'student') {
+        let completed = false;
+        try {
+          const res = await fetch(`/api/assessment/status?userId=${encodeURIComponent(userData.id)}`);
+          const data = await res.json();
+          completed = !!data?.completed;
+        } catch { /* default to gating into the assessment */ }
+        router.push(completed ? '/student' : '/assessment');
+      } else {
+        router.push(`/${userData.role}`);
+      }
+
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -194,6 +219,8 @@ export function useAuth() {
 
   const logout = () => {
     AuthService.logout();
+    // Clear the server-side session cookie too.
+    fetch('/api/auth/session', { method: 'DELETE' }).catch(() => { /* best effort */ });
     setUser(null);
     router.push('/auth/');
   };

@@ -134,7 +134,7 @@ export const CONFIDENCE_GATE = [
 // ── Students (counselor) ──────────────────────────────────────────────────────
 
 export const STUDENTS: Student[] = [
-  { id: 's1', initials: 'PM', name: 'Priya Mehta', province: 'ON', avgGrade: 89.8, programCount: 5, avgProbability: 68, riskLevel: 'med', bgColor: '#EEF2FD', textColor: '#2D5BE3' },
+  { id: 's1', initials: 'PM', name: 'Priya Mehta', province: 'ON', avgGrade: 89.8, programCount: 5, avgProbability: 68, riskLevel: 'med', bgColor: '#EEF2FD', textColor: '#2D5BE3', assessmentUserId: 'demo-student' },
   { id: 's2', initials: 'JK', name: 'James Kim', province: 'ON', avgGrade: 92.4, programCount: 4, avgProbability: 81, riskLevel: 'hi', bgColor: '#E0F2FE', textColor: '#0891B2' },
   { id: 's3', initials: 'SM', name: 'Sofia Martinez', province: 'ON', avgGrade: 84.1, programCount: 6, avgProbability: 34, riskLevel: 'lo', bgColor: '#FEE2E2', textColor: '#DC2626' },
   { id: 's4', initials: 'AC', name: 'Amir Chen', province: 'BC', avgGrade: 91.0, programCount: 3, avgProbability: 77, riskLevel: 'hi', bgColor: '#D1FAE5', textColor: '#065F46' },
