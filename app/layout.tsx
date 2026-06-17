@@ -1,8 +1,36 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { DM_Sans, DM_Mono, Lora, Inter } from 'next/font/google';
 import ThemeInit from '@/src/components/shared/ThemeInit';
 
 const themeScript = `(function(){try{var t=localStorage.getItem('admitiq-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}if(t==='dark'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})();`;
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-dm-sans',
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+});
+
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  variable: '--font-dm-mono',
+  weight: ['400', '500'],
+  display: 'swap',
+});
+
+const lora = Lora({
+  subsets: ['latin'],
+  variable: '--font-lora',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'AdmitIQ — Your AI-Powered Admissions Co-Pilot',
@@ -47,7 +75,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${dmSans.variable} ${dmMono.variable} ${lora.variable} ${inter.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
