@@ -11,8 +11,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['DM Sans', 'system-ui', 'sans-serif'],
-        mono: ['DM Mono', 'monospace'],
+        sans: ['var(--font-dm-sans)'],
+        mono: ['var(--font-dm-mono)'],
+        lora: ['var(--font-lora)'],
+        inter: ['var(--font-inter)'],
       },
       colors: {
         ink: {
